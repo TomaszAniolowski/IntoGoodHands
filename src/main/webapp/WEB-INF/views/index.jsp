@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -85,29 +86,51 @@
             Możesz sprawdzić czym się zajmują.</p>
 
         <ul class="help--slides-items">
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
+            <c:choose>
+                <c:when test="${fn:length(institutions) % 2 == 0}">
 
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
-            </li>
+                    <c:forEach begin="0" end="${fn:length(institutions)/2}" step="2" varStatus="var">
+                        <li>
+                            <div class="col">
+                                <div class="title">Fundacja "${institutions[var.index].name}"</div>
+                                <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
+                            </div>
+                            <div class="col">
+                                <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
+                                <div class="subtitle">Cel i misja: ${institutions[var.index+1].description}.</div>
+                            </div>
+                        </li>
+                    </c:forEach>
 
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
+                </c:when>
+                <c:otherwise>
 
-            </li>
+                    <c:forEach begin="0" end="${fn:length(institutions)/2 + 2}" step="2" varStatus="var">
+                        <li>
+                            <c:choose>
+                                <c:when test="${!var.last}">
+                                    <div class="col">
+                                        <div class="title">Fundacja "${institutions[var.index].name}"</div>
+                                        <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
+                                        <div class="subtitle">Cel i misja: ${institutions[var.index+1].description}.</div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="last-of-inst">
+                                        <div class="title">Fundacja "${institutions[var.index].name}"</div>
+                                        <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+
+                        </li>
+                    </c:forEach>
+
+                </c:otherwise>
+            </c:choose>
 
         </ul>
     </div>

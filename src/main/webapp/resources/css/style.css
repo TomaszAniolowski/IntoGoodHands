@@ -1441,6 +1441,31 @@ header nav ul li:last-of-type {
   width: 100%;
 }
 
+.last-of-inst .subtitle {
+  font-family: 'Merriweather', serif;
+  font-weight: 300;
+  font-style: light;
+  font-size: 1.2rem;
+}
+
+.last-of-inst .title {
+  font-family: 'Merriweather', serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 2rem;
+  margin-bottom: 5px;
+}
+
+.last-of-inst:after {
+  content: "";
+  width: 135%;
+  height: 1px;
+  display: block;
+  position: relative;
+  margin-top: 25px;
+  background-color: #bcbcbc;
+}
+
 /* line 57, scss/modules/homepage-sections/_help.scss */
 .help--slides-items .col:last-child {
   text-align: right;
