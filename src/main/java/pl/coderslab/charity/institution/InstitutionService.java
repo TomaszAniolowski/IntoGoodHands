@@ -20,4 +20,8 @@ public class InstitutionService {
     public List<Institution> getAll(){
         return institutionRepository.findAll();
     }
+
+    public Long countAll(){
+        return institutionRepository.count();
+    }
 }
