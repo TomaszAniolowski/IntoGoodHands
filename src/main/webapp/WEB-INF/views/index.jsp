@@ -77,65 +77,73 @@
     </div>
 </section>
 
-<section class="help">
-    <h2>Komu pomagamy?</h2>
+<c:if test="${not empty institutions}">
 
-    <!-- SLIDE 1 -->
-    <div class="help--slides active" data-id="1">
-        <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
-            Możesz sprawdzić czym się zajmują.</p>
+    <section class="help">
+        <h2>Komu pomagamy?</h2>
 
-        <ul class="help--slides-items">
-            <c:choose>
-                <c:when test="${fn:length(institutions) % 2 == 0}">
+        <!-- SLIDE 1 -->
+        <div class="help--slides active" data-id="1">
+            <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
+                Możesz sprawdzić czym się zajmują.</p>
 
-                    <c:forEach begin="0" end="${fn:length(institutions)/2}" step="2" varStatus="var">
-                        <li>
-                            <div class="col">
-                                <div class="title">Fundacja "${institutions[var.index].name}"</div>
-                                <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
-                            </div>
-                            <div class="col">
-                                <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
-                                <div class="subtitle">Cel i misja: ${institutions[var.index+1].description}.</div>
-                            </div>
-                        </li>
-                    </c:forEach>
+            <ul class="help--slides-items">
+                <c:choose>
+                    <c:when test="${fn:length(institutions) % 2 == 0}">
 
-                </c:when>
-                <c:otherwise>
+                        <c:forEach begin="0" end="${fn:length(institutions)/2}" step="2" varStatus="var">
+                            <li>
+                                <div class="col">
+                                    <div class="title">Fundacja "${institutions[var.index].name}"</div>
+                                    <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
+                                </div>
+                                <div class="col">
+                                    <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
+                                    <div class="subtitle">Cel i misja: ${institutions[var.index+1].description}.</div>
+                                </div>
+                            </li>
+                        </c:forEach>
 
-                    <c:forEach begin="0" end="${fn:length(institutions)/2 + 2}" step="2" varStatus="var">
-                        <li>
-                            <c:choose>
-                                <c:when test="${!var.last}">
-                                    <div class="col">
-                                        <div class="title">Fundacja "${institutions[var.index].name}"</div>
-                                        <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
-                                        <div class="subtitle">Cel i misja: ${institutions[var.index+1].description}.</div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="last-of-inst">
-                                        <div class="title">Fundacja "${institutions[var.index].name}"</div>
-                                        <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
-                                    </div>
-                                </c:otherwise>
-                            </c:choose>
+                    </c:when>
+                    <c:otherwise>
 
-                        </li>
-                    </c:forEach>
+                        <c:forEach begin="0" end="${fn:length(institutions)/2 + 2}" step="2" varStatus="var">
+                            <li>
+                                <c:choose>
+                                    <c:when test="${!var.last}">
+                                        <div class="col">
+                                            <div class="title">Fundacja "${institutions[var.index].name}"</div>
+                                            <div class="subtitle">Cel i misja: ${institutions[var.index].description}.
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
+                                            <div class="subtitle">Cel i
+                                                misja: ${institutions[var.index+1].description}.
+                                            </div>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="col last-of-inst">
+                                            <div class="title">Fundacja "${institutions[var.index].name}"</div>
+                                            <div class="subtitle">Cel i misja: ${institutions[var.index].description}.
+                                            </div>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
 
-                </c:otherwise>
-            </c:choose>
+                            </li>
+                        </c:forEach>
 
-        </ul>
-    </div>
+                    </c:otherwise>
+                </c:choose>
 
-</section>
+            </ul>
+        </div>
+
+    </section>
+
+</c:if>
 
 
 <%@include file="/WEB-INF/views/fragments/footer.jspf" %>
