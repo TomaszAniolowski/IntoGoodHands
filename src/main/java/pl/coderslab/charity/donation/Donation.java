@@ -41,6 +41,8 @@ public class Donation {
     @NotBlank
     private String zipCode;
 
+    private int phoneNumber;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
@@ -103,6 +105,14 @@ public class Donation {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public int getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public LocalDate getPickUpDate() {

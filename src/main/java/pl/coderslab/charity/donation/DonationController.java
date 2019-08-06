@@ -24,6 +24,7 @@ public class DonationController {
     public String showForm(Model model) {
         model.addAttribute("donation", new Donation());
         model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("institutions", institutionService.getAll());
         return "form";
     }
 }

@@ -93,33 +93,20 @@
             <div data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="radio" name="organization" value="old"/>
-                        <span class="checkbox radio"></span>
-                        <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
-                  </div>
-                </span>
-                    </label>
-                </div>
+                <c:forEach var="institution" items="${institutions}">
 
-                <div class="form-group form-group--checkbox">
-                    <label>
-                        <input type="radio" name="organization" value="old"/>
-                        <span class="checkbox radio"></span>
-                        <span class="description">
-                  <div class="title">Fundacja “Dla dzieci"</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                    życiowej.
-                  </div>
-                </span>
-                    </label>
-                </div>
+                    <div class="form-group form-group--checkbox">
+                        <label>
+                            <form:radiobutton path="institution" value="${institution.id}"/>
+                            <span class="checkbox radio"></span>
+                            <span class="description">
+                                <div class="title">Fundacja “${institution.name}”</div>
+                                <div class="subtitle">Cel i misja: ${institution.description}</div>
+                            </span>
+                        </label>
+                    </div>
+
+                </c:forEach>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
@@ -135,22 +122,30 @@
                     <div class="form-section--column">
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Ulica <input type="text" name="address"/> </label>
-                        </div>
-
-                        <div class="form-group form-group--inline">
-                            <label> Miasto <input type="text" name="city"/> </label>
-                        </div>
-
-                        <div class="form-group form-group--inline">
-                            <label>
-                                Kod pocztowy <input type="text" name="postcode"/>
+                            <label> Ulica
+                                <form:input path="street"/>
+                                <form:errors path="street" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label>
-                                Numer telefonu <input type="phone" name="phone"/>
+                            <label> Miasto
+                                <form:input path="city"/>
+                                <form:errors path="city" cssClass="error" element="div"/><br>
+                            </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label> Kod pocztowy
+                                <form:input path="city"/>
+                                <form:errors path="city" cssClass="error" element="div"/><br>
+                            </label>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label> Numer telefonu
+                                <form:input path="phoneNumber"/>
+                                <form:errors path="phoneNumber" cssClass="error" element="div"/><br>
                             </label>
                         </div>
                     </div>
@@ -158,17 +153,24 @@
                     <div class="form-section--column">
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Data <input type="date" name="data"/> </label>
+                            <label> Data
+                                <form:input path="pickUpDate" value="yyyy-MM-dd"/>
+                                <form:errors path="pickUpDate" cssClass="error" element="div"/><br>
+                            </label>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Godzina <input type="time" name="time"/> </label>
+                            <label> Godzina
+                                <form:input path="pickUpTime" value="hh:mm"/>
+                                <form:errors path="pickUpTime" cssClass="error" element="div"/><br>
+                            </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                <textarea name="more_info" rows="5"></textarea>
+                                <form:textarea path="pickUpComment" rows="5"/>
+                                <form:errors path="pickUpComment" cssClass="error" element="div"/><br>
                             </label>
                         </div>
                     </div>
