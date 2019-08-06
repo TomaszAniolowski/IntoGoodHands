@@ -15,4 +15,15 @@ public class DonationService {
     public DonationService(DonationRepository donationRepository) {
         this.donationRepository = donationRepository;
     }
+
+    public Integer getAllBagsQuantity() {
+        return (Integer) ifNull(donationRepository.sumAllBagsQuantity(), 0);
+    }
+
+    private Object ifNull(Object basic, Object alternative) {
+        if (basic != null)
+            return basic;
+        else
+            return alternative;
+    }
 }
