@@ -11,6 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
@@ -137,8 +138,8 @@
 
                         <div class="form-group form-group--inline">
                             <label> Kod pocztowy
-                                <form:input path="city"/>
-                                <form:errors path="city" cssClass="error" element="div"/><br>
+                                <form:input path="zipCode"/>
+                                <form:errors path="zipCode" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
@@ -154,14 +155,14 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data
-                                <form:input path="pickUpDate" value="yyyy-MM-dd"/>
+                                <form:input path="pickUpDate" value="YYYY-MM-DD"/>
                                 <form:errors path="pickUpDate" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina
-                                <form:input path="pickUpTime" value="hh:mm"/>
+                                <form:input path="pickUpTime" value="HH:MM"/>
                                 <form:errors path="pickUpTime" cssClass="error" element="div"/><br>
                             </label>
                         </div>

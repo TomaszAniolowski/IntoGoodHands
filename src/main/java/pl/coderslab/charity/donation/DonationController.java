@@ -2,10 +2,14 @@ package pl.coderslab.charity.donation;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.institution.InstitutionService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/donations")
@@ -26,5 +30,16 @@ public class DonationController {
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("institutions", institutionService.getAll());
         return "form";
+    }
+
+    @PostMapping("/form")
+    public String validateForm(@Valid Donation donation, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("categories", categoryService.getAll());
+            model.addAttribute("institutions", institutionService.getAll());
+            return "form";
+        }
+
+        return "redirect:/";
     }
 }
