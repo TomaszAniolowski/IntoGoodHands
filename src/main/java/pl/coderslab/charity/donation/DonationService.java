@@ -16,6 +16,10 @@ public class DonationService {
         this.donationRepository = donationRepository;
     }
 
+    public void save(Donation donation){
+        donationRepository.save(donation);
+    }
+
     public Integer getAllBagsQuantity() {
         return (Integer) ifNull(donationRepository.sumAllBagsQuantity(), 0);
     }

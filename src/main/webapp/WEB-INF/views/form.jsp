@@ -125,12 +125,16 @@
                 <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
 
                 <div class="wrong alert alert-danger" role="alert">
-                    <form:errors path="street" cssStyle="display: block"/>
-                    <form:errors path="streetNum" cssStyle="display: block"/>
-                    <form:errors path="city" cssStyle="display: block"/>
-                    <form:errors path="zipCode" cssStyle="display: block"/>
-                    <form:errors path="phoneNumber" cssStyle="display: block"/>
-                    <form:errors path="pickUpComment" cssStyle="display: block"/>
+                    <div class="wrong error-source text-secondary">Ulica: </div>
+                    <form:errors path="street" cssClass="error" cssStyle="display: block"/>
+                    <div class="wrong error-source text-secondary">Numer domu/mieszkania: </div>
+                    <form:errors path="streetNum" cssClass="error" cssStyle="display: block"/>
+                    <div class="wrong error-source text-secondary">Miasto: </div>
+                    <form:errors path="city" cssClass="error" cssStyle="display: block"/>
+                    <div class="wrong error-source text-secondary">Kod pocztowy: </div>
+                    <form:errors path="zipCode" cssClass="error" cssStyle="display: block"/>
+                    <div class="wrong error-source text-secondary">Nr telefonu: </div>
+                    <form:errors path="phoneNumber" cssClass="error" cssStyle="display: block"/>
                 </div>
                 <div class="form-section form-section--columns">
                     <div class="form-section--column">

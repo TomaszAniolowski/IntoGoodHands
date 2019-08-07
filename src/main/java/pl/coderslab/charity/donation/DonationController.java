@@ -40,6 +40,7 @@ public class DonationController {
             return "form";
         }
 
+        donationService.save(donation);
         return "redirect:/";
     }
 }

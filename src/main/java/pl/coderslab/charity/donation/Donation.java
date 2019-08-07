@@ -5,10 +5,7 @@ import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.institution.Institution;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -22,9 +19,9 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Min(1)
-    private int quantity;
+    @NotBlank
+    @Pattern(regexp="^[1-9]+[0-9]*$")
+    private String quantity;
 
     @OneToMany
     @NotEmpty
@@ -37,16 +34,18 @@ public class Donation {
     @NotBlank
     private String street;
 
-    @NotNull
-    private int streetNum;
+    @Size(min = 1, max = 10)
+    private String streetNum;
 
     @NotBlank
     private String city;
 
     @NotBlank
+    @Pattern(regexp="^\\d{2}-\\d{3}$")
     private String zipCode;
 
-    private int phoneNumber;
+    @Size(min = 7, max = 15)
+    private String phoneNumber;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
@@ -64,11 +63,11 @@ public class Donation {
         this.id = id;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -96,11 +95,11 @@ public class Donation {
         this.street = street;
     }
 
-    public int getStreetNum() {
+    public String getStreetNum() {
         return streetNum;
     }
 
-    public void setStreetNum(int streetNum) {
+    public void setStreetNum(String streetNum) {
         this.streetNum = streetNum;
     }
 
@@ -120,11 +119,11 @@ public class Donation {
         this.zipCode = zipCode;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

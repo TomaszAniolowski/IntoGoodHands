@@ -170,8 +170,13 @@ document.addEventListener("DOMContentLoaded", function () {
         additionalEvents() {
             var invisibleAlertElement = this.$form.querySelector('div.alert.alert-danger.wrong');
 
-            if (invisibleAlertElement.querySelector('div') != null)
+            if (invisibleAlertElement.querySelector('span.error') != null)
                 invisibleAlertElement.classList.remove('wrong');
+
+            this.$form.querySelectorAll('div.alert.alert-danger span.error').forEach( element => {
+                var element = element.previousElementSibling;
+                element.classList.remove('wrong');
+            });
 
             // Number inputs
             this.$numeric.forEach(input => {
@@ -181,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // check if key is numeric
                 input.addEventListener('keypress', e => {
                     var key = e.key;
-                    if (isNaN(parseInt(key))) {
+                    if (isNaN(parseInt(key)) && key != '/') {
                         e.preventDefault();
                         $(input).tooltip('show');
                     } else
