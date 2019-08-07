@@ -115,18 +115,19 @@ document.addEventListener("DOMContentLoaded", function () {
          */
         init() {
             this.events();
+            this.additionalEvents();
             this.updateForm();
         }
 
         /**
-         * All events that are happening in form
+         * All basic events that are happening in form
          */
         events() {
             // Next step
             this.$next.forEach(btn => {
                 btn.addEventListener("click", e => {
                     e.preventDefault();
-                    if (this.validateStep()){
+                    if (this.generalValidation()) {
                         this.currentStep++;
                         this.updateForm();
                     }
@@ -147,31 +148,60 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         /**
+         * All additional events that are happening in form
+         */
+        additionalEvents() {
+            // Number inputs
+            this.$numeric = this.$form.querySelectorAll('input.number');
+            this.$numeric.forEach(input => {
+                // clear 0
+                input.addEventListener('click', e => {
+                    if (input.value == '0')
+                        input.value = '';
+                });
+
+                // check if key is numeric
+                input.addEventListener('keypress', e => {
+                    var key = e.key;
+                    if (isNaN(parseInt(key))) {
+                        e.preventDefault();
+                        $(input).tooltip('show');
+                    } else
+                        $(input).tooltip('hide');
+                });
+            });
+
+        }
+
+        /**
          * Validate form
          * Stay on actual step or move forward
          */
-        validateStep() {
+        generalValidation() {
 
             switch (this.currentStep) {
                 case 1:
-                    var checkboxes = document.querySelectorAll('div[data-step="1"] .checkbox');
+                    var checkboxes = this.$form.querySelectorAll('div[data-step="1"] .checkbox');
                     var correctness = false;
                     checkboxes.forEach(function (checkbox) {
-                        if (checkbox.parentElement.querySelector('input').checked === true){
+                        if (checkbox.parentElement.querySelector('input').checked === true) {
                             correctness = true;
                         }
-
                     });
-
-                    validateFirstStep(correctness);
+                    validateFirst3steps(1, correctness, "Należy wybrać przynajmniej jedną opcję!");
                     return correctness;
                 case 2:
+                    var input = this.$form.querySelector('div[data-step="2"] input');
+                    input.value = input.value.replace(/^0+/, '');
+                    var correctness = input.value != '';
+                    validateFirst3steps(2, correctness, "Minimalna wartość to 1!");
+                    return correctness;
                 case 3:
                 case 4:
             }
 
-            function validateFirstStep(isCorrect) {
-                var actualForm = document.querySelector('div[data-step="1"]');
+            function validateFirst3steps(step, isCorrect, errorInfo) {
+                var actualForm = document.querySelector('div[data-step="' + step + '"]');
                 var errorDiv = actualForm.querySelector('div.alert');
 
                 if (isCorrect) {
@@ -183,18 +213,22 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
                 }
 
-                errorDiv = document.createElement("DIV");
-                errorDiv.innerText = "Należy wybrać przynajmniej jedną opcję!";
+                errorDiv = createAlert(errorInfo);
+                actualForm.insertBefore(errorDiv, actualForm.querySelector('div.form-group'));
+            }
+
+            function createAlert(errorInfo) {
+                var errorDiv = document.createElement("DIV");
+                errorDiv.innerText = errorInfo;
                 errorDiv.classList.add("alert");
                 errorDiv.classList.add("alert-danger");
                 errorDiv.setAttribute("role", "alert");
                 errorDiv.style.fontSize = 'medium';
                 errorDiv.style.marginBottom = '20px';
 
-                actualForm.insertBefore(errorDiv, actualForm.querySelector('div.form-group'));
+                return errorDiv;
             }
         }
-
 
         /**
          * Update form front-end
