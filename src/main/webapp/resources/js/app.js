@@ -168,6 +168,11 @@ document.addEventListener("DOMContentLoaded", function () {
          * All additional events that are happening in form
          */
         additionalEvents() {
+            var invisibleAlertElement = this.$form.querySelector('div.alert.alert-danger.wrong');
+
+            if (invisibleAlertElement.querySelector('div') != null)
+                invisibleAlertElement.classList.remove('wrong');
+
             // Number inputs
             this.$numeric.forEach(input => {
                 // clear 0
@@ -428,8 +433,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 errorDiv.classList.add("alert");
                 errorDiv.classList.add("alert-danger");
                 errorDiv.setAttribute("role", "alert");
-                errorDiv.style.fontSize = 'medium';
-                errorDiv.style.marginBottom = '20px';
 
                 actualForm.insertBefore(errorDiv, actualForm.querySelector('div'));
             }

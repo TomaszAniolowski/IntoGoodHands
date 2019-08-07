@@ -11,7 +11,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Document</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
@@ -45,6 +46,8 @@
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
 
+                <form:errors path="categories" cssClass="alert alert-danger" element="div" role="alert"/>
+
                 <c:forEach var="category" items="${categories}" begin="1">
                     <div class="form-group form-group--checkbox">
                         <label>
@@ -75,11 +78,12 @@
             <div data-step="2">
                 <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
+                <form:errors path="quantity" cssClass="alert alert-danger" element="div" role="alert"/>
                 <div class="form-group form-group--inline">
                     <label>
                         Liczba 60l worków:
-                        <form:input path="quantity" cssClass="number" data-toggle="tooltip" data-placement="bottom" title="Wprowadź liczbę"/>
-                        <form:errors path="quantity" cssClass="error" element="div"/><br>
+                        <form:input path="quantity" cssClass="number" data-toggle="tooltip" data-placement="bottom"
+                                    title="Wprowadź liczbę"/>
                     </label>
                 </div>
 
@@ -94,6 +98,7 @@
             <div data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
+                <form:errors path="institution" cssClass="alert alert-danger" element="div" role="alert"/>
                 <c:forEach var="institution" items="${institutions}">
 
                     <div class="form-group form-group--checkbox">
@@ -119,36 +124,43 @@
             <div data-step="4">
                 <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
 
+                <div class="wrong alert alert-danger" role="alert">
+                    <form:errors path="street" cssStyle="display: block"/>
+                    <form:errors path="streetNum" cssStyle="display: block"/>
+                    <form:errors path="city" cssStyle="display: block"/>
+                    <form:errors path="zipCode" cssStyle="display: block"/>
+                    <form:errors path="phoneNumber" cssStyle="display: block"/>
+                    <form:errors path="pickUpComment" cssStyle="display: block"/>
+                </div>
                 <div class="form-section form-section--columns">
                     <div class="form-section--column">
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Ulica
                                 <form:input path="street" cssClass="street"/>
-                                <form:input path="streetNum" cssClass="number streetNum" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
-                                <form:errors path="street" cssClass="error" element="div"/><br>
-                                <form:errors path="streetNum" cssClass="error" element="div"/><br>
+                                <form:input path="streetNum" cssClass="number streetNum" data-toggle="tooltip"
+                                            data-placement="top" title="Wprowadź liczbę"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Miasto
-                                <form:input path="city" cssClass="city" data-toggle="tooltip" data-placement="top" title="Wprowadź poprawną nazwę miasta"/>
-                                <form:errors path="city" cssClass="error" element="div"/><br>
+                                <form:input path="city" cssClass="city" data-toggle="tooltip" data-placement="top"
+                                            title="Wprowadź poprawną nazwę miasta"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Kod pocztowy
-                                <form:input path="zipCode" cssClass="formatted zipCode" data-toggle="tooltip" data-placement="top" title="Wprowadź kod pocztowy" value="__-___"/>
-                                <form:errors path="zipCode" cssClass="error" element="div"/><br>
+                                <form:input path="zipCode" cssClass="formatted zipCode" data-toggle="tooltip"
+                                            data-placement="top" title="Wprowadź kod pocztowy" value="__-___"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Nr telefonu
-                                <form:input path="phoneNumber" cssClass="number phoneNum" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
-                                <form:errors path="phoneNumber" cssClass="error" element="div"/><br>
+                                <form:input path="phoneNumber" cssClass="number phoneNum" data-toggle="tooltip"
+                                            data-placement="top" title="Wprowadź liczbę"/>
                             </label>
                         </div>
                     </div>
@@ -157,15 +169,17 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data
-                                <form:input path="pickUpDate" cssClass="formatted date" data-toggle="tooltip" data-placement="top" title="Wprowadź datę w formacie YYYY-MM-DD" value="YYYY-MM-DD"/>
-                                <form:errors path="pickUpDate" cssClass="error" element="div"/><br>
+                                <form:input path="pickUpDate" cssClass="formatted date" data-toggle="tooltip"
+                                            data-placement="top" title="Wprowadź datę w formacie YYYY-MM-DD"
+                                            value="YYYY-MM-DD"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina
-                                <form:input path="pickUpTime" cssClass="formatted time" data-toggle="tooltip" data-placement="top" title="Wprowadź godzinę w formacie HH:MM" value="HH:MM"/>
-                                <form:errors path="pickUpTime" cssClass="error" element="div"/><br>
+                                <form:input path="pickUpTime" cssClass="formatted time" data-toggle="tooltip"
+                                            data-placement="top" title="Wprowadź godzinę w formacie HH:MM"
+                                            value="HH:MM"/>
                             </label>
                         </div>
 
@@ -173,7 +187,6 @@
                             <label>
                                 Uwagi dla kuriera
                                 <form:textarea path="pickUpComment" cssClass="comment" rows="5"/>
-                                <form:errors path="pickUpComment" cssClass="error" element="div"/><br>
                             </label>
                         </div>
                     </div>
@@ -194,7 +207,8 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text"><span class="bagsQuantity"></span> ubrań w dobrym stanie</span>
+                                <span class="summary--text"><span
+                                        class="bagsQuantity"></span> ubrań w dobrym stanie</span>
                             </li>
 
                             <li>
@@ -237,9 +251,15 @@
 
 <%@include file="/WEB-INF/views/fragments/footer.jspf" %>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 
 <script src="<c:url value="/resources/js/app.js"/>"></script>

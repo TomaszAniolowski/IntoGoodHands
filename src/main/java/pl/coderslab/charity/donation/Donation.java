@@ -5,6 +5,7 @@ import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.institution.Institution;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class Donation {
     private Long id;
 
     @NotNull
+    @Min(1)
     private int quantity;
 
     @OneToMany
