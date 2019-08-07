@@ -97,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     class FormSteps {
         constructor(form) {
+            // structure
             this.$form = form;
             this.$next = form.querySelectorAll(".next-step");
             this.$prev = form.querySelectorAll(".prev-step");
@@ -106,6 +107,23 @@ document.addEventListener("DOMContentLoaded", function () {
             this.$stepInstructions = form.querySelectorAll(".form--steps-instructions p");
             const $stepForms = form.querySelectorAll("form > div");
             this.slides = [...this.$stepInstructions, ...$stepForms];
+
+            // inputs
+            this.$numeric = this.$form.querySelectorAll('input.number');
+            this.$formatted = this.$form.querySelectorAll('input.formatted');
+
+            this.$checkboxes = this.$form.querySelectorAll('div[data-step="1"] .checkbox');
+            this.$bagQuantity = this.$form.querySelector('div[data-step="2"] input');
+            this.$radiobuttons = this.$form.querySelectorAll('div[data-step="3"] .checkbox.radio');
+
+            this.$street = this.$form.querySelector('#street');
+            this.$streetNum = this.$form.querySelector('#streetNum');
+            this.$city = this.$form.querySelector('#city');
+            this.$zipCode = this.$form.querySelector('#zipCode');
+            this.$phoneNum = this.$form.querySelector('#phoneNum');
+            this.$date = this.$form.querySelector('#date');
+            this.$time = this.$form.querySelector('#time');
+            this.$comment = this.$form.querySelector('#comment');
 
             this.init();
         }
@@ -152,13 +170,9 @@ document.addEventListener("DOMContentLoaded", function () {
          */
         additionalEvents() {
             // Number inputs
-            this.$numeric = this.$form.querySelectorAll('input.number');
             this.$numeric.forEach(input => {
                 // clear 0
-                input.addEventListener('click', e => {
-                    if (input.value == '0')
-                        input.value = '';
-                });
+                input.value = '';
 
                 // check if key is numeric
                 input.addEventListener('keypress', e => {
@@ -171,6 +185,77 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
 
+            // Formatted inputs
+            this.$formatted.forEach(input => {
+                var format = input.value;
+
+
+                // set cursor when empty
+                input.addEventListener('click', e => {
+                    if (input.selectionStart == input.value.length && input.value == format)
+                        input.setSelectionRange(0, 0);
+                });
+
+                // enter character
+                input.addEventListener('keypress', e => {
+                    var key = e.key;
+                    if (isNaN(parseInt(key))) {
+                        e.preventDefault();
+                        $(input).tooltip('show');
+                        return;
+                    } else
+                        $(input).tooltip('hide');
+
+                    e.preventDefault();
+                    var selectionStart = input.selectionStart;
+
+                    if (selectionStart == format.length)
+                        return;
+
+                    var index = setIndex(selectionStart, 1);
+                    input.value = input.value.replaceCharacter(index, key);
+                    input.setSelectionRange(index + 1, index + 1);
+                });
+
+                // remove character
+                input.addEventListener('keydown', e => {
+                    if (e.keyCode != 8)
+                        return;
+
+                    var selectionStart = input.selectionStart;
+                    if (selectionStart == 0)
+                        return;
+
+                    e.preventDefault();
+
+                    var index = setIndex(selectionStart - 1, -1);
+                    input.value = input.value.replaceCharacter(index, format.charAt(index));
+                    input.setSelectionRange(index, index);
+                });
+
+
+                function setIndex(selectionStart, modification) {
+                    switch (format) {
+                        case '__-___':
+                            if (selectionStart != 2)
+                                return selectionStart;
+                            else
+                                return selectionStart + modification;
+
+                        case 'YYYY-MM-DD':
+                            if (selectionStart != 4 && selectionStart != 7)
+                                return selectionStart;
+                            else
+                                return selectionStart + modification;
+
+                        case 'HH:MM':
+                            if (selectionStart != 2)
+                                return selectionStart;
+                            else
+                                return selectionStart + modification;
+                    }
+                }
+            });
         }
 
         /**
@@ -178,26 +263,24 @@ document.addEventListener("DOMContentLoaded", function () {
          * Stay on actual step or move forward
          */
         generalValidation() {
-
             switch (this.currentStep) {
                 case 1:
-                    var checkboxes = this.$form.querySelectorAll('div[data-step="1"] .checkbox');
-                    var correctness = false;
-                    checkboxes.forEach(function (checkbox) {
-                        if (checkbox.parentElement.querySelector('input').checked === true) {
-                            correctness = true;
-                        }
-                    });
-                    validateFirst3steps(1, correctness, "Należy wybrać przynajmniej jedną opcję!");
-                    return correctness;
+                    return validateFirst3steps(1, isAnyChecked(this.$checkboxes), "Należy wybrać przynajmniej jedną opcję!");
                 case 2:
-                    var input = this.$form.querySelector('div[data-step="2"] input');
-                    input.value = input.value.replace(/^0+/, '');
-                    var correctness = input.value != '';
-                    validateFirst3steps(2, correctness, "Minimalna wartość to 1!");
-                    return correctness;
+                    this.$bagQuantity.value = this.$bagQuantity.value.replace(/^0+/, '');
+                    return validateFirst3steps(2, this.$bagQuantity.value != '', "Minimalna wartość to 1!");
                 case 3:
+                    return validateFirst3steps(3, isAnyChecked(this.$radiobuttons), "Należy wybrać jedną fundację z listy!");
                 case 4:
+                    return validateFourthStep(this);
+            }
+
+            function isAnyChecked(boxes) {
+                for (var i = 0; i < boxes.length; i++) {
+                    if (boxes[i].parentElement.querySelector('input').checked === true)
+                        return true;
+                }
+                return false;
             }
 
             function validateFirst3steps(step, isCorrect, errorInfo) {
@@ -207,18 +290,140 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (isCorrect) {
                     if (errorDiv != null)
                         actualForm.removeChild(errorDiv);
-                    return;
+                    return isCorrect;
                 } else {
                     if (errorDiv != null)
-                        return;
+                        return isCorrect;
                 }
 
-                errorDiv = createAlert(errorInfo);
-                actualForm.insertBefore(errorDiv, actualForm.querySelector('div.form-group'));
+                createAlert(step, errorInfo);
+                return isCorrect;
             }
 
-            function createAlert(errorInfo) {
+            function validateFourthStep(form) {
+                function possibleDate(dateArray) {
+                    var currentDate = new Date();
+                    var currentYear = currentDate.getFullYear();
+                    var currentMonth = currentDate.getMonth() + 1;
+                    var currentDay = currentDate.getDay();
+
+                    return parseInt(dateArray[0]) >= currentYear &&
+                        parseInt(dateArray[1]) >= currentMonth &&
+                        parseInt(dateArray[2]) >= currentDay;
+                }
+
+                function correctDate(dateArray) {
+                    var maxDay;
+                    switch (dateArray[1]) {
+                        case 2:
+                            if (dateArray[0] % 4 != 0)
+                                maxDay = 28;
+                            else
+                                maxDay = 29;
+                            break;
+                        case 1:
+                        case 3:
+                        case 5:
+                        case 7:
+                        case 8:
+                        case 10:
+                        case 12:
+                            maxDay = 31;
+                            break;
+                        default:
+                            maxDay = 30;
+
+                    }
+
+                    return /^\d{4}-\d{2}-\d{2}$/.test(form.$date.value) &&
+                        parseInt(dateArray[1]) > 0 && parseInt(dateArray[1]) <= 12 &&
+                        parseInt(dateArray[2]) > 0 && parseInt(dateArray[1]) <= maxDay;
+                }
+
+                function correctTime(timeArray) {
+                    return /^\d{2}:\d{2}$/.test(form.$time.value) &&
+                        parseInt(timeArray[0]) >= 0 && parseInt(timeArray[0]) <= 23 &&
+                            parseInt(timeArray[1]) >= 0 && parseInt(timeArray[1]) <= 59;
+                }
+
+                function possibleTime(timeArray) {
+                    var currentDate = new Date();
+                    var currentHour = currentDate.getHours();
+                    var currentMinutes = currentDate.getMinutes();
+
+                    var currentYear = currentDate.getFullYear();
+                    var currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
+                    var currentDay = String(currentDate.getDate()).padStart(2, '0');
+
+                    if (document.querySelector('#date').value != currentYear + '-' + currentMonth + '-' + currentDay)
+                        return true;
+
+                    return parseInt(timeArray[0]) >= currentHour &&
+                        parseInt(timeArray[1]) >= currentMinutes;
+                }
+
+
+                var information = '';
+                var correctness = true;
+
+                if (form.$street.value == '') {
+                    correctness = false;
+                    information = information.concat('\n').concat('Nazwa ulicy nie może być pusta.');
+                }
+                if (form.$streetNum.value == '') {
+                    correctness = false;
+                    information = information.concat('\n').concat('Numer domu/mieszkania nie może być pusty.');
+                }
+                if (form.$city.value == '') {
+                    correctness = false;
+                    information = information.concat('\n').concat('Nazwa miasta nie może być pusta.');
+                }
+                if (form.$zipCode.value == '') {
+                    correctness = false;
+                    information = information.concat('\n').concat('Kod pocztowy nie może być pusty.');
+                }
+                if (!/^\d{2}-\d{3}$/.test(form.$zipCode.value)) {
+                    correctness = false;
+                    information = information.concat('\n').concat('Podano nieprawidłowy kod pocztowy.');
+                }
+                if (form.$phoneNum.value.length < 7) {
+                    correctness = false;
+                    information = information.concat('\n').concat('Podano nieprawidłowy numer.');
+                }
+                var dateArray = form.$date.value.split('-');
+                if (!correctDate(dateArray)) {
+                    correctness = false;
+                    information = information.concat('\n').concat('Podano nieprawidłową datę.');
+                } else if (!possibleDate(dateArray)) {
+                    correctness = false;
+                    information = information.concat('\n').concat('Podano datę wcześniejszą niż dzisiejsza.');
+                }
+                var timeArray = form.$time.value.split(':');
+                if (!correctTime(timeArray)) {
+                    correctness = false;
+                    information = information.concat('\n').concat('Podano nieprawidłową godzinę.');
+                } else if (!possibleTime(timeArray)) {
+                    correctness = false;
+                    information = information.concat('\n').concat('Podano godzinę dnia dzisiejszego, która już minęła.');
+                }
+
+                var alert = document.querySelector('div[data-step="4"] div.alert');
+                if (alert != null)
+                    alert.parentElement.removeChild(alert);
+
+                if (!correctness) {
+                    information = information.replace(/\n/, '');
+                    createAlert(4, information);
+                }
+
+                return correctness;
+            }
+
+
+            function createAlert(step, errorInfo) {
+                var actualForm = document.querySelector('div[data-step="' + step + '"]');
                 var errorDiv = document.createElement("DIV");
+
                 errorDiv.innerText = errorInfo;
                 errorDiv.classList.add("alert");
                 errorDiv.classList.add("alert-danger");
@@ -226,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 errorDiv.style.fontSize = 'medium';
                 errorDiv.style.marginBottom = '20px';
 
-                return errorDiv;
+                actualForm.insertBefore(errorDiv, actualForm.querySelector('div'));
             }
         }
 
@@ -259,4 +464,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (form !== null) {
         new FormSteps(form);
     }
+
+    String.prototype.replaceCharacter = function (index, replacement) {
+        return this.substr(0, index).concat(replacement).concat(this.substr(index + replacement.length));
+    };
 });

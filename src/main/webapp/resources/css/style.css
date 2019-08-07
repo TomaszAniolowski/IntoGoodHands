@@ -579,6 +579,11 @@ form .form-group--inline label input {
   margin-left: 15px;
 }
 
+form .form-group--inline label input#streetNum {
+  margin-left: 5px;
+  width: 60px;
+}
+
 /* line 49, scss/modules/_forms.scss */
 form .form-group--checkbox {
   font-family: 'Open Sans', sans-serif;
@@ -688,6 +693,8 @@ form .form-group--dropdown .dropdown input {
   opacity: 0;
   position: absolute;
 }
+
+
 
 /* line 134, scss/modules/_forms.scss */
 form .form-group--dropdown .dropdown:after {

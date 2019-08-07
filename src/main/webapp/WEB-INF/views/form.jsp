@@ -124,28 +124,30 @@
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Ulica
-                                <form:input path="street"/>
+                                <form:input path="street" id="street"/>
+                                <form:input path="streetNum" id="streetNum" cssClass="number" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
                                 <form:errors path="street" cssClass="error" element="div"/><br>
+                                <form:errors path="streetNum" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Miasto
-                                <form:input path="city"/>
+                                <form:input path="city" id="city" data-toggle="tooltip" data-placement="top" title="Wprowadź poprawną nazwę miasta"/>
                                 <form:errors path="city" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Kod pocztowy
-                                <form:input path="zipCode"/>
+                                <form:input path="zipCode" cssClass="formatted" id="zipCode" data-toggle="tooltip" data-placement="top" title="Wprowadź kod pocztowy" value="__-___"/>
                                 <form:errors path="zipCode" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label> Numer telefonu
-                                <form:input path="phoneNumber" cssClass="number" data-toggle="tooltip" data-placement="bottom" title="Wprowadź liczbę"/>
+                            <label> Nr telefonu
+                                <form:input path="phoneNumber" cssClass="number" id="phoneNum" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
                                 <form:errors path="phoneNumber" cssClass="error" element="div"/><br>
                             </label>
                         </div>
@@ -155,14 +157,14 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data
-                                <form:input path="pickUpDate" value="YYYY-MM-DD"/>
+                                <form:input path="pickUpDate" cssClass="formatted" id="date" data-toggle="tooltip" data-placement="top" title="Wprowadź datę w formacie YYYY-MM-DD" value="YYYY-MM-DD"/>
                                 <form:errors path="pickUpDate" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina
-                                <form:input path="pickUpTime" value="HH:MM"/>
+                                <form:input path="pickUpTime" cssClass="formatted" id="time" data-toggle="tooltip" data-placement="top" title="Wprowadź godzinę w formacie HH:MM" value="HH:MM"/>
                                 <form:errors path="pickUpTime" cssClass="error" element="div"/><br>
                             </label>
                         </div>
@@ -170,7 +172,7 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                <form:textarea path="pickUpComment" rows="5"/>
+                                <form:textarea path="pickUpComment" id="comment" rows="5"/>
                                 <form:errors path="pickUpComment" cssClass="error" element="div"/><br>
                             </label>
                         </div>

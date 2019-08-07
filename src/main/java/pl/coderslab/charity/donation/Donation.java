@@ -35,6 +35,9 @@ public class Donation {
     @NotBlank
     private String street;
 
+    @NotNull
+    private int streetNum;
+
     @NotBlank
     private String city;
 
@@ -89,6 +92,14 @@ public class Donation {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    public int getStreetNum() {
+        return streetNum;
+    }
+
+    public void setStreetNum(int streetNum) {
+        this.streetNum = streetNum;
     }
 
     public String getCity() {
