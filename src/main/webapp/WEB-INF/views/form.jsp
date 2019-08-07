@@ -101,7 +101,7 @@
                             <form:radiobutton path="institution" value="${institution.id}"/>
                             <span class="checkbox radio"></span>
                             <span class="description">
-                                <div class="title">Fundacja “${institution.name}”</div>
+                                <div class="title">Fundacja “<span class="institution-name">${institution.name}</span>”</div>
                                 <div class="subtitle">Cel i misja: ${institution.description}</div>
                             </span>
                         </label>
@@ -124,8 +124,8 @@
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Ulica
-                                <form:input path="street" id="street"/>
-                                <form:input path="streetNum" id="streetNum" cssClass="number" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
+                                <form:input path="street" cssClass="street"/>
+                                <form:input path="streetNum" cssClass="number streetNum" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
                                 <form:errors path="street" cssClass="error" element="div"/><br>
                                 <form:errors path="streetNum" cssClass="error" element="div"/><br>
                             </label>
@@ -133,21 +133,21 @@
 
                         <div class="form-group form-group--inline">
                             <label> Miasto
-                                <form:input path="city" id="city" data-toggle="tooltip" data-placement="top" title="Wprowadź poprawną nazwę miasta"/>
+                                <form:input path="city" cssClass="city" data-toggle="tooltip" data-placement="top" title="Wprowadź poprawną nazwę miasta"/>
                                 <form:errors path="city" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Kod pocztowy
-                                <form:input path="zipCode" cssClass="formatted" id="zipCode" data-toggle="tooltip" data-placement="top" title="Wprowadź kod pocztowy" value="__-___"/>
+                                <form:input path="zipCode" cssClass="formatted zipCode" data-toggle="tooltip" data-placement="top" title="Wprowadź kod pocztowy" value="__-___"/>
                                 <form:errors path="zipCode" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Nr telefonu
-                                <form:input path="phoneNumber" cssClass="number" id="phoneNum" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
+                                <form:input path="phoneNumber" cssClass="number phoneNum" data-toggle="tooltip" data-placement="top" title="Wprowadź liczbę"/>
                                 <form:errors path="phoneNumber" cssClass="error" element="div"/><br>
                             </label>
                         </div>
@@ -157,14 +157,14 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data
-                                <form:input path="pickUpDate" cssClass="formatted" id="date" data-toggle="tooltip" data-placement="top" title="Wprowadź datę w formacie YYYY-MM-DD" value="YYYY-MM-DD"/>
+                                <form:input path="pickUpDate" cssClass="formatted date" data-toggle="tooltip" data-placement="top" title="Wprowadź datę w formacie YYYY-MM-DD" value="YYYY-MM-DD"/>
                                 <form:errors path="pickUpDate" cssClass="error" element="div"/><br>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina
-                                <form:input path="pickUpTime" cssClass="formatted" id="time" data-toggle="tooltip" data-placement="top" title="Wprowadź godzinę w formacie HH:MM" value="HH:MM"/>
+                                <form:input path="pickUpTime" cssClass="formatted time" data-toggle="tooltip" data-placement="top" title="Wprowadź godzinę w formacie HH:MM" value="HH:MM"/>
                                 <form:errors path="pickUpTime" cssClass="error" element="div"/><br>
                             </label>
                         </div>
@@ -172,7 +172,7 @@
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                <form:textarea path="pickUpComment" id="comment" rows="5"/>
+                                <form:textarea path="pickUpComment" cssClass="comment" rows="5"/>
                                 <form:errors path="pickUpComment" cssClass="error" element="div"/><br>
                             </label>
                         </div>
@@ -194,16 +194,12 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text"
-                                >4 worki ubrań w dobrym stanie dla dzieci</span
-                                >
+                                <span class="summary--text"><span class="bagsQuantity"></span> ubrań w dobrym stanie</span>
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text"
-                                >Dla fundacji "Mam marzenie" w Warszawie</span
-                                >
+                                <span class="summary--text">Dla fundacji "<span class="institution"></span>" w Warszawie</span>
                             </li>
                         </ul>
                     </div>
@@ -212,19 +208,19 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>Prosta 51</li>
-                                <li>Warszawa</li>
-                                <li>99-098</li>
-                                <li>123 456 789</li>
+                                <li><span class="street"></span> <span class="streetNum"></span></li>
+                                <li><span class="city"></span></li>
+                                <li><span class="zipCode"></span></li>
+                                <li><span class="phoneNum"></span></li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                <li>13/12/2018</li>
-                                <li>15:40</li>
-                                <li>Brak uwag</li>
+                                <li><span class="date"></span></li>
+                                <li><span class="time"></span></li>
+                                <li><span class="comment"></span></li>
                             </ul>
                         </div>
                     </div>

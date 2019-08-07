@@ -112,18 +112,17 @@ document.addEventListener("DOMContentLoaded", function () {
             this.$numeric = this.$form.querySelectorAll('input.number');
             this.$formatted = this.$form.querySelectorAll('input.formatted');
 
-            this.$checkboxes = this.$form.querySelectorAll('div[data-step="1"] .checkbox');
             this.$bagQuantity = this.$form.querySelector('div[data-step="2"] input');
             this.$radiobuttons = this.$form.querySelectorAll('div[data-step="3"] .checkbox.radio');
 
-            this.$street = this.$form.querySelector('#street');
-            this.$streetNum = this.$form.querySelector('#streetNum');
-            this.$city = this.$form.querySelector('#city');
-            this.$zipCode = this.$form.querySelector('#zipCode');
-            this.$phoneNum = this.$form.querySelector('#phoneNum');
-            this.$date = this.$form.querySelector('#date');
-            this.$time = this.$form.querySelector('#time');
-            this.$comment = this.$form.querySelector('#comment');
+            this.$street = this.$form.querySelector('input.street');
+            this.$streetNum = this.$form.querySelector('input.streetNum');
+            this.$city = this.$form.querySelector('input.city');
+            this.$zipCode = this.$form.querySelector('input.zipCode');
+            this.$phoneNum = this.$form.querySelector('input.phoneNum');
+            this.$date = this.$form.querySelector('input.date');
+            this.$time = this.$form.querySelector('input.time');
+            this.$comment = this.$form.querySelector('textarea.comment');
 
             this.init();
         }
@@ -213,7 +212,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         return;
 
                     var index = setIndex(selectionStart, 1);
-                    input.value = input.value.replaceCharacter(index, key);
+                    var value = input.value;
+                    input.value = value.replaceCharacter(index, key);
                     input.setSelectionRange(index + 1, index + 1);
                 });
 
@@ -265,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
         generalValidation() {
             switch (this.currentStep) {
                 case 1:
-                    return validateFirst3steps(1, isAnyChecked(this.$checkboxes), "Należy wybrać przynajmniej jedną opcję!");
+                    return validateFirst3steps(1, isAnyChecked(this.$form.querySelectorAll('div[data-step="1"] .checkbox')), "Należy wybrać przynajmniej jedną opcję!");
                 case 2:
                     this.$bagQuantity.value = this.$bagQuantity.value.replace(/^0+/, '');
                     return validateFirst3steps(2, this.$bagQuantity.value != '', "Minimalna wartość to 1!");
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     var currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
                     var currentDay = String(currentDate.getDate()).padStart(2, '0');
 
-                    if (document.querySelector('#date').value != currentYear + '-' + currentMonth + '-' + currentDay)
+                    if (form.$date.value != currentYear + '-' + currentMonth + '-' + currentDay)
                         return true;
 
                     return parseInt(timeArray[0]) >= currentHour &&
@@ -442,8 +442,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateForm() {
             this.$step.innerText = this.currentStep;
 
-            // TODO: Validation
-
             this.slides.forEach(slide => {
                 slide.classList.remove("active");
 
@@ -455,7 +453,49 @@ document.addEventListener("DOMContentLoaded", function () {
             this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 5;
             this.$step.parentElement.hidden = this.currentStep >= 5;
 
-            // TODO: get data from inputs and show them in summary
+
+            this.$form.querySelector('div[data-step="5"] .summary span.bagsQuantity').innerText = getBagsInf(this.$bagQuantity.value);
+            this.$form.querySelector('div[data-step="5"] .summary span.institution').innerText = getInstitutionsInf(this.$radiobuttons);
+            this.$form.querySelector('div[data-step="5"] .summary span.street').innerText = this.$street.value;
+            this.$form.querySelector('div[data-step="5"] .summary span.city').innerText = this.$city.value;
+            this.$form.querySelector('div[data-step="5"] .summary span.zipCode').innerText = this.$zipCode.value;
+            this.$form.querySelector('div[data-step="5"] .summary span.phoneNum').innerText = getPhoneNumInf(this.$phoneNum.value);
+            this.$form.querySelector('div[data-step="5"] .summary span.date').innerText = this.$date.value;
+            this.$form.querySelector('div[data-step="5"] .summary span.time').innerText = this.$time.value;
+            this.$form.querySelector('div[data-step="5"] .summary span.comment').innerText = getCommentInf(this.$comment.value);
+
+
+            function getBagsInf(quantity) {
+                if (parseInt(quantity) === 1)
+                    return quantity + ' worek';
+                else if (quantity.charAt(quantity.length-1) == '1' ||
+                        (parseInt(quantity.substr(quantity.length-2)) >= 5
+                            && parseInt(quantity.substr(quantity.length-2)) <= 20))
+                    return quantity + ' worków';
+                else if (parseInt( quantity.charAt(quantity.length-1) ) >= 2 && parseInt( quantity.charAt(quantity.length-1) ) <= 4)
+                    return quantity + ' worki';
+            }
+
+            function getInstitutionsInf(boxes) {
+                for (var i = 0; i < boxes.length; i++) {
+                    if (boxes[i].parentElement.querySelector('input').checked === true)
+                        return boxes[i].parentElement.querySelector('span.description div.title span.institution-name').innerText;
+                }
+            }
+
+            function getPhoneNumInf(phoneNum) {
+                if (phoneNum.length == 9)
+                    return phoneNum.substr(0, 3) + ' ' + phoneNum.substr(4, 3) + ' ' + phoneNum.substr(7, 3)
+                else
+                    return phoneNum;
+            }
+
+            function getCommentInf(comment) {
+                if (comment != '')
+                    return comment;
+                else
+                    return 'Brak uwag';
+            }
         }
 
     }
