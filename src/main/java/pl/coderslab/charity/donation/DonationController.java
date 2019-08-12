@@ -41,6 +41,6 @@ public class DonationController {
         }
 
         donationService.save(donation);
-        return "redirect:/";
+        return "form-confirmation";
     }
 }

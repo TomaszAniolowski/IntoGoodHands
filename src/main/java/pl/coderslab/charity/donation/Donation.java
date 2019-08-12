@@ -23,7 +23,7 @@ public class Donation {
     @Pattern(regexp="^[1-9]+[0-9]*$")
     private String quantity;
 
-    @OneToMany
+    @ManyToMany
     @NotEmpty
     private List<Category> categories = new ArrayList<>();
 
