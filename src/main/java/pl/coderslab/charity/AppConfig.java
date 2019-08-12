@@ -9,15 +9,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.coderslab.charity.category.CategoryConverter;
 import pl.coderslab.charity.category.InstitutionConverter;
 
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = "pl.coderslab.charity")
 @EnableTransactionManagement
+@EnableWebMvc
 @EnableJpaRepositories(basePackages = "pl.coderslab.charity")
 public class AppConfig implements WebMvcConfigurer {
     // === VIEWRESOLVER
@@ -51,5 +52,10 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public InstitutionConverter getInstitutionConverter() {
         return new InstitutionConverter();
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/403").setViewName("403");
     }
 }
