@@ -18,26 +18,30 @@
     <%@include file="/WEB-INF/views/fragments/header.jspf" %>
 
     <div class="slogan container container--90">
+        <sec:authorize access="hasAnyRole('USER', 'ADMIN')">
+            <a href="/donations/form" class="btn btn--large"><spring:message code="app.main-page.send-the-package"/></a>
+        </sec:authorize>
         <div class="slogan--item">
+
             <h1>
-                Oddaj rzeczy, których już nie chcesz<br/>
-                <span class="uppercase">potrzebującym</span>
+                <spring:message code="app.main-page.slogan.main-part"/><br/>
+                <span class="uppercase"><spring:message code="app.main-page.slogan.feature"/></span>
             </h1>
 
             <div class="slogan--steps">
-                <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
+                <div class="slogan--steps-title"><spring:message code="app.main-page.slogan.steps.title"/></div>
                 <ul class="slogan--steps-boxes">
                     <li>
-                        <div><em>1</em><span>Wybierz rzeczy</span></div>
+                        <div><em>1</em><span><spring:message code="app.main-page.slogan.steps.1"/></span></div>
                     </li>
                     <li>
-                        <div><em>2</em><span>Spakuj je w worki</span></div>
+                        <div><em>2</em><span><spring:message code="app.main-page.slogan.steps.2"/></span></div>
                     </li>
                     <li>
-                        <div><em>3</em><span>Wybierz fundację</span></div>
+                        <div><em>3</em><span><spring:message code="app.main-page.slogan.steps.3"/></span></div>
                     </li>
                     <li>
-                        <div><em>4</em><span>Zamów kuriera</span></div>
+                        <div><em>4</em><span><spring:message code="app.main-page.slogan.steps.4"/></span></div>
                     </li>
                 </ul>
             </div>
@@ -51,55 +55,56 @@
         <div class="stats--item">
             <em><c:out value="${bagsQuantity}" default="<ERROR: no data>"/></em>
 
-            <h3>Oddanych worków</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
-                tempora!</p>
+            <h3><spring:message code="app.main-page.stats.bags-title"/></h3>
+            <p><spring:message code="app.main-page.stats.bags-quote"/></p>
         </div>
 
         <div class="stats--item">
             <em><c:out value="${institutionsQuantity}" default="<ERROR: no data>"/></em>
-            <h3>Wspartych organizacji</h3>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
-                quam.</p>
+            <h3><spring:message code="app.main-page.stats.institutions-title"/></h3>
+            <p><spring:message code="app.main-page.stats.institutions-quote"/></p>
         </div>
 
     </div>
 </section>
 
-<section class="steps">
-    <h2>Wystarczą 4 proste kroki</h2>
+<section class="steps" id="steps">
+    <h2><spring:message code="app.main-page.slogan.steps.title"/></h2>
 
     <div class="steps--container">
         <div class="steps--item">
             <span class="icon icon--hands"></span>
-            <h3>Wybierz rzeczy</h3>
-            <p>ubrania, zabawki, sprzęt i inne</p>
+            <h3><spring:message code="app.main-page.slogan.steps.1"/></h3>
+            <p><spring:message code="app.main-page.slogan.steps.1.feature"/></p>
         </div>
         <div class="steps--item">
             <span class="icon icon--arrow"></span>
-            <h3>Spakuj je</h3>
-            <p>skorzystaj z worków na śmieci</p>
+            <h3><spring:message code="app.main-page.slogan.steps.2"/></h3>
+            <p><spring:message code="app.main-page.slogan.steps.2.feature"/></p>
         </div>
         <div class="steps--item">
             <span class="icon icon--glasses"></span>
-            <h3>Zdecyduj komu chcesz pomóc</h3>
-            <p>wybierz zaufane miejsce</p>
+            <h3><spring:message code="app.main-page.slogan.steps.3"/></h3>
+            <p><spring:message code="app.main-page.slogan.steps.3.feature"/></p>
         </div>
         <div class="steps--item">
             <span class="icon icon--courier"></span>
-            <h3>Zamów kuriera</h3>
-            <p>kurier przyjedzie w dogodnym terminie</p>
+            <h3><spring:message code="app.main-page.slogan.steps.4"/></h3>
+            <p><spring:message code="app.main-page.slogan.steps.4.feature"/></p>
         </div>
     </div>
-
-    <a href="/register" class="btn btn--large">Załóż konto</a>
+    <sec:authorize access="isAnonymous()">
+        <a href="/register" class="btn btn--large"><spring:message code="app.header.anonymous.create-account"/></a>
+    </sec:authorize>
+    <sec:authorize access="hasAnyRole('USER', 'ADMIN')">
+        <a href="/donations/form" class="btn btn--large"><spring:message code="app.main-page.send-the-package"/></a>
+    </sec:authorize>
 </section>
 
-<section class="about-us">
+<section class="about-us" id="about-us">
     <div class="about-us--text">
-        <h2>O nas</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt libero
-            optio esse quisquam illo omnis.</p>
+        <h2><spring:message code="app.header.navbar.about-us"/></h2>
+        <p><spring:message code="app.main-page.about-us.quote"/></p>
         <img src="<c:url value="resources/images/signature.svg"/>" class="about-us--text-signature" alt="Signature"/>
     </div>
     <div class="about-us--image"><img src="<c:url value="resources/images/about-us.jpg"/>" alt="People in circle"/>
@@ -108,13 +113,11 @@
 
 <c:if test="${not empty institutions}">
 
-    <section class="help">
-        <h2>Komu pomagamy?</h2>
+    <section class="help" id="help">
+        <h2><spring:message code="app.main-page.institutions.header"/></h2>
 
-        <!-- SLIDE 1 -->
         <div class="help--slides active" data-id="1">
-            <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
-                Możesz sprawdzić czym się zajmują.</p>
+            <p><spring:message code="app.main-page.institutions.feature"/></p>
 
             <ul class="help--slides-items">
                 <c:choose>
@@ -123,12 +126,12 @@
                         <c:forEach begin="0" end="${fn:length(institutions)/2}" step="2" varStatus="var">
                             <li>
                                 <div class="col">
-                                    <div class="title">Fundacja "${institutions[var.index].name}"</div>
-                                    <div class="subtitle">Cel i misja: ${institutions[var.index].description}.</div>
+                                    <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index].name}"</div>
+                                    <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.</div>
                                 </div>
                                 <div class="col">
-                                    <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
-                                    <div class="subtitle">Cel i misja: ${institutions[var.index+1].description}.</div>
+                                    <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index+1].name}"</div>
+                                    <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index+1].description}.</div>
                                 </div>
                             </li>
                         </c:forEach>
@@ -141,21 +144,20 @@
                                 <c:choose>
                                     <c:when test="${!var.last}">
                                         <div class="col">
-                                            <div class="title">Fundacja "${institutions[var.index].name}"</div>
-                                            <div class="subtitle">Cel i misja: ${institutions[var.index].description}.
+                                            <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index].name}"</div>
+                                            <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="title">Fundacja "${institutions[var.index+1].name}"</div>
-                                            <div class="subtitle">Cel i
-                                                misja: ${institutions[var.index+1].description}.
+                                            <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index+1].name}"</div>
+                                            <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index+1].description}.
                                             </div>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <div class="col last-of-inst">
-                                            <div class="title">Fundacja "${institutions[var.index].name}"</div>
-                                            <div class="subtitle">Cel i misja: ${institutions[var.index].description}.
+                                            <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index].name}"</div>
+                                            <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.
                                             </div>
                                         </div>
                                     </c:otherwise>

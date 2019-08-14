@@ -6,15 +6,15 @@
     <sec:authorize access="hasAnyRole('USER', 'ADMIN')">
         <ul class="nav--actions">
             <li class="logged-user">
-                <spring:message code="app.user.hello"/> ${username}
+                <spring:message code="app.header.user.hello" arguments="${username}"/>
                 <ul class="dropdown">
-                    <li><a href="#"><spring:message code="app.user.profile"/></a></li>
-                    <li><a href="#"><spring:message code="app.user.settings"/></a></li>
-                    <li><a href="#"><spring:message code="app.user.collections"/></a></li>
+                    <li><a href="#"><spring:message code="app.header.user.profile"/></a></li>
+                    <li><a href="#"><spring:message code="app.header.user.settings"/></a></li>
+                    <li><a href="#"><spring:message code="app.header.user.collections"/></a></li>
 
                     <li>
                     <form action="<c:url value="/logout"/>" method="post">
-                        <input type="submit" value="<spring:message code="app.user.logout"/>">
+                        <input type="submit" value="<spring:message code="app.header.user.logout"/>">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form>
                     </li>
@@ -24,23 +24,23 @@
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
         <ul class="nav--actions">
-            <li><a href="/login">Zaloguj</a></li>
-            <li class="highlighted"><a href="/register">Załóż konto</a></li>
+            <li><a href="/login"><spring:message code="app.header.anonymous.login"/></a></li>
+            <li class="highlighted"><a href="/register"><spring:message code="app.header.anonymous.create-account"/></a></li>
         </ul>
     </sec:authorize>
 
 
     <ul>
-        <li><a href="index.html" class="btn btn--without-border active"><spring:message
-                code="app.navbar.start"/></a></li>
-        <li><a href="index.html#steps" class="btn btn--without-border"><spring:message
-                code="app.navbar.about-project"/></a></li>
-        <li><a href="index.html#about-us" class="btn btn--without-border"><spring:message
-                code="app.navbar.about-us"/></a></li>
-        <li><a href="index.html#help" class="btn btn--without-border"><spring:message
-                code="app.navbar.fundations-organizaitons"/></a></li>
-        <li><a href="index.html#contact" class="btn btn--without-border"><spring:message
-                code="app.navbar.contact"/></a></li>
+        <li><a href="http://localhost:8080/" class="btn btn--without-border active"><spring:message
+                code="app.header.navbar.start"/></a></li>
+        <li><a href="http://localhost:8080/#steps" class="btn btn--without-border"><spring:message
+                code="app.header.navbar.about-project"/></a></li>
+        <li><a href="http://localhost:8080/#about-us" class="btn btn--without-border"><spring:message
+                code="app.header.navbar.about-us"/></a></li>
+        <li><a href="http://localhost:8080/#help" class="btn btn--without-border"><spring:message
+                code="app.header.navbar.fundations-organizaitons"/></a></li>
+        <li><a href="#contact" class="btn btn--without-border"><spring:message
+                code="app.header.navbar.contact"/></a></li>
     </ul>
 </nav>
 

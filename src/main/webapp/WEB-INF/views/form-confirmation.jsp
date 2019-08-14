@@ -16,13 +16,9 @@
 <header class="header--form-page">
     <%@include file="/WEB-INF/views/fragments/header.jspf" %>
     <div class="slogan container container--90">
-        <h2>
-            Dziękujemy za przesłanie formularza Na maila prześlemy wszelkie
-            informacje o odbiorze.
-        </h2>
+        <h2><spring:message code="app.donation-form.confirmation"/></h2>
     </div>
 </header>
-
 
 <%@include file="/WEB-INF/views/fragments/footer.jspf" %>
 

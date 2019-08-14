@@ -17,19 +17,19 @@
     <%@include file="/WEB-INF/views/fragments/header.jspf" %>
 </header>
 <section class="login-page">
-    <h2>Zaloguj się</h2>
+    <h2><spring:message code="app.login-form.header"/></h2>
     <form method="post">
         <div class="form-group">
-            <input type="text" name="username" placeholder="Username"/>
+            <input type="text" name="username" placeholder="<spring:message code="app.form.username-input"/>"/>
         </div>
         <div class="form-group">
-            <input type="password" name="password" placeholder="Hasło"/>
-            <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
+            <input type="password" name="password" placeholder="<spring:message code="app.form.password-input"/>"/>
+            <a href="#" class="btn btn--small btn--without-border reset-password"><spring:message code="app.login-form.forgot-the-password"/></a>
         </div>
 
         <div class="form-group form-group--buttons">
-            <a href="/register" class="btn btn--without-border">Załóż konto</a>
-            <button class="btn" type="submit">Zaloguj się</button>
+            <a href="/register" class="btn btn--without-border"><spring:message code="app.header.anonymous.create-account"/></a>
+            <button class="btn" type="submit"><spring:message code="app.login-form.header"/></button>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         </div>
     </form>

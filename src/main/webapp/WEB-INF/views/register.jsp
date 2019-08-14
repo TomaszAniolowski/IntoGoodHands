@@ -20,28 +20,34 @@
 </header>
 
 <section class="login-page">
-    <h2>Załóż konto</h2>
+    <h2><spring:message code="app.header.anonymous.create-account"/></h2>
+
+    <spring:message code="app.form.username-input" var="usernamePlaceholder"/>
+    <spring:message code="app.form.email-input" var="emailPlaceholder"/>
+    <spring:message code="app.form.password-input" var="passwordPlaceholder"/>
+    <spring:message code="app.form.password-confirm-input" var="passwordConfirmPlaceholder"/>
+
     <form:form action="/create-user" method="post" modelAttribute="user">
         <form:errors path="id" cssClass="alert alert-danger" element="div" role="alert"/>
         <div class="form-group">
-            <form:input path="username" placeholder="Nazwa użytkownika"/>
+            <form:input path="username" placeholder="${usernamePlaceholder}"/>
             <form:errors path="username" cssClass="alert alert-danger" element="div" role="alert"/>
         </div>
         <div class="form-group">
-            <form:input path="email" placeholder="Email"/>
+            <form:input path="email" placeholder="${emailPlaceholder}"/>
             <form:errors path="email" cssClass="alert alert-danger" element="div" role="alert"/>
         </div>
         <div class="form-group">
-            <fomr:password path="password" placeholder="Hasło"/>
+            <form:password path="password" placeholder="${passwordPlaceholder}"/>
             <form:errors path="password" cssClass="alert alert-danger" element="div" role="alert"/>
         </div>
         <%--        <div class="form-group">--%>
-        <%--            <input type="password" name="confirmPassword" placeholder="Powtórz hasło"/>--%>
+        <%--            <input type="password" name="confirmPassword" placeholder="${passwordConfirmPlaceholder}"/>--%>
         <%--        </div>--%>
 
         <div class="form-group form-group--buttons">
-            <a href="/login" class="btn btn--without-border">Zaloguj się</a>
-            <button class="btn" type="submit">Załóż konto</button>
+            <a href="/login" class="btn btn--without-border"><spring:message code="app.login-form.header"/></a>
+            <button class="btn" type="submit"><spring:message code="app.header.anonymous.create-account"/></button>
         </div>
     </form:form>
 </section>
