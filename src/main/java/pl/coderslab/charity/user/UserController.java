@@ -1,13 +1,17 @@
 package pl.coderslab.charity.user;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -20,9 +24,15 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String displayRegisterForm(Model model) {
-        model.addAttribute("user", new User());
-        return "register";
+    public String displayRegisterForm(@AuthenticationPrincipal CurrentUser customUser, Model model) {
+        try {
+            customUser.getUser();
+        } catch (NullPointerException e) {
+            model.addAttribute("user", new User());
+            return "register";
+        }
+
+        return "redirect:/";
     }
 
     @PostMapping("/create-user")
@@ -30,19 +40,22 @@ public class UserController {
         if (result.hasErrors())
             return "register";
 
-        userService.saveUser(user);
+        if(userService.checkUser(user))
+            userService.saveUser(user);
+        else {
+            result.addError(new FieldError("user", "id", "User with such an email address or username already exists. Check your mailbox."));
+            return "register";
+        }
         return "redirect:/login";
     }
 
     @GetMapping("/login")
-    public String displayLoginForm(Model model) {
-        model.addAttribute("user", new User());
-        return "login";
+    public String displayLoginForm(@AuthenticationPrincipal CurrentUser customUser) {
+        try {
+            customUser.getUser();
+        } catch (NullPointerException e) {
+            return "login";
+        }
+        return "redirect:/";
     }
-
-//    @PostMapping("/login")
-//    public String loginUser(@Valid User user, BindingResult result) {
-//        User user2 = userService.findByUserEmail(user.getEmail());
-//        return "redirect:/";
-//    }
 }

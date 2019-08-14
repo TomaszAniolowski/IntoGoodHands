@@ -27,12 +27,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.getUserByUsername(username);
     }
 
     @Override
     public User findByUserEmail(String email) {
-        return userRepository.findByEmail(email);
+        return userRepository.getUserByEmail(email);
     }
 
     @Override
@@ -42,5 +42,10 @@ public class UserServiceImpl implements UserService{
         Role userRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
+    }
+
+    public boolean checkUser(User user) {
+        //TODO: send email if user with such an email address exists
+        return this.findByUserEmail(user.getEmail()) == null && this.findByUsername(user.getUsername()) == null;
     }
 }

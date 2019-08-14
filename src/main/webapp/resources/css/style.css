@@ -1168,6 +1168,18 @@ header nav ul.nav--actions .logged-user ul li:last-of-type {
   border-bottom: 1px solid #3c3c3c;
 }
 
+
+header nav ul.nav--actions .logged-user ul input {
+  background:none;
+  border:none;
+  margin-left: 44px;
+  padding: 6px;
+  cursor: pointer;
+  color: #3c3c3c;
+  font: inherit;
+  font-size: 1.4rem;
+}
+
 /* line 62, scss/modules/_navigation.scss */
 header nav ul.nav--actions .logged-user ul a {
   display: inline-block;

@@ -15,11 +15,14 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
-<%@include file="/WEB-INF/views/fragments/header.jspf" %>
+<header>
+    <%@include file="/WEB-INF/views/fragments/header.jspf" %>
+</header>
 
 <section class="login-page">
     <h2>Załóż konto</h2>
     <form:form action="/create-user" method="post" modelAttribute="user">
+        <form:errors path="id" cssClass="alert alert-danger" element="div" role="alert"/>
         <div class="form-group">
             <form:input path="username" placeholder="Nazwa użytkownika"/>
             <form:errors path="username" cssClass="alert alert-danger" element="div" role="alert"/>
@@ -32,9 +35,9 @@
             <fomr:password path="password" placeholder="Hasło"/>
             <form:errors path="password" cssClass="alert alert-danger" element="div" role="alert"/>
         </div>
-<%--        <div class="form-group">--%>
-<%--            <input type="password" name="confirmPassword" placeholder="Powtórz hasło"/>--%>
-<%--        </div>--%>
+        <%--        <div class="form-group">--%>
+        <%--            <input type="password" name="confirmPassword" placeholder="Powtórz hasło"/>--%>
+        <%--        </div>--%>
 
         <div class="form-group form-group--buttons">
             <a href="/login" class="btn btn--without-border">Zaloguj się</a>

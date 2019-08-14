@@ -13,11 +13,18 @@
     <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
 </head>
 <body>
-<%@include file="/WEB-INF/views/fragments/header.jspf" %>
+<header class="header--form-page">
+    <%@include file="/WEB-INF/views/fragments/header.jspf" %>
+    <div class="slogan container container--90">
+        <h2>
+            Dziękujemy za przesłanie formularza Na maila prześlemy wszelkie
+            informacje o odbiorze.
+        </h2>
+    </div>
+</header>
 
 
 <%@include file="/WEB-INF/views/fragments/footer.jspf" %>
 
-<script src="<c:url value="/resources/js/form-confirmation.js"/>"></script>
 </body>
 </html>
