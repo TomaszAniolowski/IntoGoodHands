@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.charity.donation.DonationService;
 import pl.coderslab.charity.institution.InstitutionService;
 import pl.coderslab.charity.user.CurrentUser;
@@ -34,9 +35,15 @@ public class HomeController {
 
     @RequestMapping("/")
     public String homeAction(Model model) {
+
         model.addAttribute("institutions", institutionService.getAll());
         model.addAttribute("institutionsQuantity", institutionService.countAll());
         model.addAttribute("bagsQuantity", donationService.getAllBagsQuantity());
         return "index";
+    }
+
+    @GetMapping("/international")
+    public String international(@RequestParam String prev){
+        return "redirect:" + prev;
     }
 }

@@ -36,3 +36,5 @@
         </div>
     </div>
 </footer>
+
+<script src="<c:url value="/resources/js/locale.js"/>"></script>

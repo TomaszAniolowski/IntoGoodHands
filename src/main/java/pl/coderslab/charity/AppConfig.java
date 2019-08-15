@@ -1,19 +1,24 @@
 package pl.coderslab.charity;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.coderslab.charity.category.CategoryConverter;
 import pl.coderslab.charity.category.InstitutionConverter;
+
+import javax.annotation.PostConstruct;
+import java.util.Locale;
 
 @Configuration
 @ComponentScan(basePackages = "pl.coderslab.charity")
@@ -21,6 +26,40 @@ import pl.coderslab.charity.category.InstitutionConverter;
 @EnableWebMvc
 @EnableJpaRepositories(basePackages = "pl.coderslab.charity")
 public class AppConfig implements WebMvcConfigurer {
+
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+    @Autowired
+    public AppConfig(RequestMappingHandlerAdapter requestMappingHandlerAdapter) {
+        this.requestMappingHandlerAdapter = requestMappingHandlerAdapter;
+    }
+
+    @PostConstruct
+    public void init() {
+        requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
+    }
+
+    // === LOCALE
+
+    @Bean
+    public LocaleResolver localeResolver() {
+        SessionLocaleResolver slr = new SessionLocaleResolver();
+        slr.setDefaultLocale(Locale.forLanguageTag("pl-PL"));
+        return slr;
+    }
+
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
+        lci.setParamName("lang");
+        return lci;
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(localeChangeInterceptor());
+    }
+
     // === VIEWRESOLVER
     @Bean
     public ViewResolver viewResolver() {
@@ -52,10 +91,5 @@ public class AppConfig implements WebMvcConfigurer {
     @Bean
     public InstitutionConverter getInstitutionConverter() {
         return new InstitutionConverter();
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/403").setViewName("403");
     }
 }

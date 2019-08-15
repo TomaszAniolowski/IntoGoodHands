@@ -3,6 +3,10 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <nav class="container container--70">
+    <div id="locale">
+        <span data-value="en">English</span>
+        <span data-value="pl">Polish</span>
+    </div>
     <sec:authorize access="hasAnyRole('USER', 'ADMIN')">
         <ul class="nav--actions">
             <li class="logged-user">
@@ -43,4 +47,3 @@
                 code="app.header.navbar.contact"/></a></li>
     </ul>
 </nav>
-

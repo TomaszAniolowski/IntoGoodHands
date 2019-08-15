@@ -442,6 +442,28 @@ h2:after {
   width: 70vw;
 }
 
+#locale {
+  margin-top: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+#locale  span{
+  padding-top: 3px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#locale  span:hover{
+  background-color: rgb(200, 150, 50);
+}
+
 /* line 30, scss/modules/_base.scss */
 .container--85 {
   width: 85vw;
