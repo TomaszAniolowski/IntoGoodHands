@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.previous"/></button>
+                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.back"/></button>
                     <button type="button" class="btn next-step"><spring:message code="app.donation-form.steps.next"/></button>
                 </div>
             </div>
@@ -141,7 +141,7 @@
                 </c:forEach>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.previous"/></button>
+                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.back"/></button>
                     <button type="button" class="btn next-step"><spring:message code="app.donation-form.steps.next"/></button>
                 </div>
             </div>
@@ -222,7 +222,7 @@
                     </div>
                 </div>
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.previous"/></button>
+                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.back"/></button>
                     <button type="button" class="btn next-step"><spring:message code="app.donation-form.steps.next"/></button>
                 </div>
             </div>
@@ -271,7 +271,7 @@
                 </div>
 
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.previous"/></button>
+                    <button type="button" class="btn prev-step"><spring:message code="app.donation-form.steps.back"/></button>
                     <button type="submit" class="btn"><spring:message code="app.donation-form.steps.confirm"/></button>
                 </div>
             </div>
