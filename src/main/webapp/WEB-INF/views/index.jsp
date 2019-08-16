@@ -18,9 +18,9 @@
     <%@include file="/WEB-INF/views/fragments/header.jspf" %>
 
     <div class="slogan container container--90">
-        <sec:authorize access="hasAnyRole('USER', 'ADMIN')">
-            <a href="/donations/form" class="btn btn--large"><spring:message code="app.main-page.send-the-package"/></a>
-        </sec:authorize>
+
+        <a href="/donations/form" class="btn btn--large"><spring:message code="app.main-page.send-the-package"/></a>
+
         <div class="slogan--item">
 
             <h1>
@@ -126,12 +126,20 @@
                         <c:forEach begin="0" end="${fn:length(institutions)/2}" step="2" varStatus="var">
                             <li>
                                 <div class="col">
-                                    <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index].name}"</div>
-                                    <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.</div>
+                                    <div class="title"><spring:message code="app.main-page.institutions.foundation"/>
+                                        "${institutions[var.index].name}"
+                                    </div>
+                                    <div class="subtitle"><spring:message
+                                            code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.
+                                    </div>
                                 </div>
                                 <div class="col">
-                                    <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index+1].name}"</div>
-                                    <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index+1].description}.</div>
+                                    <div class="title"><spring:message code="app.main-page.institutions.foundation"/>
+                                        "${institutions[var.index+1].name}"
+                                    </div>
+                                    <div class="subtitle"><spring:message
+                                            code="app.main-page.institutions.mission"/> ${institutions[var.index+1].description}.
+                                    </div>
                                 </div>
                             </li>
                         </c:forEach>
@@ -144,20 +152,32 @@
                                 <c:choose>
                                     <c:when test="${!var.last}">
                                         <div class="col">
-                                            <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index].name}"</div>
-                                            <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.
+                                            <div class="title"><spring:message
+                                                    code="app.main-page.institutions.foundation"/>
+                                                "${institutions[var.index].name}"
+                                            </div>
+                                            <div class="subtitle"><spring:message
+                                                    code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.
                                             </div>
                                         </div>
                                         <div class="col">
-                                            <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index+1].name}"</div>
-                                            <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index+1].description}.
+                                            <div class="title"><spring:message
+                                                    code="app.main-page.institutions.foundation"/>
+                                                "${institutions[var.index+1].name}"
+                                            </div>
+                                            <div class="subtitle"><spring:message
+                                                    code="app.main-page.institutions.mission"/> ${institutions[var.index+1].description}.
                                             </div>
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <div class="col last-of-inst">
-                                            <div class="title"><spring:message code="app.main-page.institutions.foundation"/> "${institutions[var.index].name}"</div>
-                                            <div class="subtitle"><spring:message code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.
+                                            <div class="title"><spring:message
+                                                    code="app.main-page.institutions.foundation"/>
+                                                "${institutions[var.index].name}"
+                                            </div>
+                                            <div class="subtitle"><spring:message
+                                                    code="app.main-page.institutions.mission"/> ${institutions[var.index].description}.
                                             </div>
                                         </div>
                                     </c:otherwise>

@@ -11,11 +11,11 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.coderslab.charity.category.CategoryConverter;
 import pl.coderslab.charity.category.InstitutionConverter;
+import pl.coderslab.charity.configExt.ApplicationLocaleResolver;
 
 import javax.annotation.PostConstruct;
 import java.util.Locale;
@@ -27,12 +27,8 @@ import java.util.Locale;
 @EnableJpaRepositories(basePackages = "pl.coderslab.charity")
 public class AppConfig implements WebMvcConfigurer {
 
-    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
-
     @Autowired
-    public AppConfig(RequestMappingHandlerAdapter requestMappingHandlerAdapter) {
-        this.requestMappingHandlerAdapter = requestMappingHandlerAdapter;
-    }
+    private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
 
     @PostConstruct
     public void init() {
@@ -43,10 +39,17 @@ public class AppConfig implements WebMvcConfigurer {
 
     @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.forLanguageTag("pl-PL"));
-        return slr;
+        ApplicationLocaleResolver alr = new ApplicationLocaleResolver();
+        alr.setDefaultLocale(Locale.forLanguageTag("pl-PL"));
+        return alr;
     }
+
+//    @Bean
+//    public LocaleResolver localeResolver() {
+//        SessionLocaleResolver slr = new SessionLocaleResolver();
+//        slr.setDefaultLocale(Locale.forLanguageTag("pl-PL"));
+//        return slr;
+//    }
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {

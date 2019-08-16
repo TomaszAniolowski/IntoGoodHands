@@ -9,10 +9,11 @@ import pl.coderslab.charity.role.RoleRepository;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private RoleRepository roleRepository;
@@ -42,6 +43,22 @@ public class UserServiceImpl implements UserService{
         Role userRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
+    }
+
+    @Override
+    public void setLocale(String username, Locale locale) {
+        User user = userRepository.getUserByUsername(username);
+        if (user == null)
+            return;
+
+        user.setLocale(locale.toLanguageTag());
+        userRepository.save(user);
+    }
+
+    @Override
+    public String getUsersLocale(String username) throws NullPointerException {
+        return userRepository.getUserByUsername(username).getLocale();
+
     }
 
     public boolean checkUser(User user) {

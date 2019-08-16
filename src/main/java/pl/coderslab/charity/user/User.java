@@ -38,4 +38,9 @@ public class User {
 
     private String locale;
 
+    @PrePersist
+    private void prePersist() {
+        locale = "pl-PL";
+    }
+
 }
