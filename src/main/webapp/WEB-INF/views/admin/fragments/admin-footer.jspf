@@ -1,0 +1,10 @@
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; <spring:message code="app.admin.sidebar.main.into-good-hands"/> 2019</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
