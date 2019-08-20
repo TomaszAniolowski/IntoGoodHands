@@ -1,11 +1,14 @@
 package pl.coderslab.charity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.ErrorPage;
+import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -16,6 +19,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.coderslab.charity.category.CategoryConverter;
 import pl.coderslab.charity.category.InstitutionConverter;
 import pl.coderslab.charity.configExt.ApplicationLocaleResolver;
+import pl.coderslab.charity.configExt.MyErrorPageRegistry;
 
 import javax.annotation.PostConstruct;
 import java.util.Locale;
@@ -27,8 +31,14 @@ import java.util.Locale;
 @EnableJpaRepositories(basePackages = "pl.coderslab.charity")
 public class AppConfig implements WebMvcConfigurer {
 
-    @Autowired
     private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+    private MyErrorPageRegistry myErrorPageRegistry;
+
+    @Autowired
+    public AppConfig(RequestMappingHandlerAdapter requestMappingHandlerAdapter, MyErrorPageRegistry myErrorPageRegistry) {
+        this.requestMappingHandlerAdapter = requestMappingHandlerAdapter;
+        this.myErrorPageRegistry = myErrorPageRegistry;
+    }
 
     @PostConstruct
     public void init() {
@@ -44,13 +54,6 @@ public class AppConfig implements WebMvcConfigurer {
         return alr;
     }
 
-//    @Bean
-//    public LocaleResolver localeResolver() {
-//        SessionLocaleResolver slr = new SessionLocaleResolver();
-//        slr.setDefaultLocale(Locale.forLanguageTag("pl-PL"));
-//        return slr;
-//    }
-
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
@@ -61,6 +64,13 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+    }
+
+    // === VIEWCONTROLLERS
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/404").setViewName("404");
     }
 
     // === VIEWRESOLVER
