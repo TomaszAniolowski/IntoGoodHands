@@ -9,6 +9,7 @@ import pl.coderslab.charity.role.RoleRepository;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -24,6 +25,16 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return userRepository.getUsersByRoles(roleRepository.findByName("ROLE_USER"));
+    }
+
+    @Override
+    public List<User> getAdmins() {
+        return userRepository.getUsersByRoles(roleRepository.findByName("ROLE_ADMIN"));
     }
 
     @Override

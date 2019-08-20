@@ -42,9 +42,9 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header"><spring:message code="app.admin.sidebar.list-items.chose-option"/></h6>
-                <a class="collapse-item" href="buttons.html"><spring:message
+                <a class="collapse-item" href="/admin/users/ord"><spring:message
                         code="app.admin.sidebar.list-items.users.standard"/></a>
-                <a class="collapse-item" href="buttons.html"><spring:message
+                <a class="collapse-item" href="/admin/users/adm"><spring:message
                         code="app.admin.sidebar.list-items.users.admins"/></a>
             </div>
         </div>
@@ -52,21 +52,21 @@
 
     <!-- Nav Item - Donations -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/admin/don">
             <i class="fas fa-fw fa-hand-holding-heart"></i>
             <span><spring:message code="app.admin.sidebar.list-items.donations"/></span></a>
     </li>
 
     <!-- Nav Item - Institutions -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/admin/inst">
             <i class="fas fa-fw fa-handshake"></i>
             <span><spring:message code="app.admin.sidebar.list-items.institutions"/></span></a>
     </li>
 
     <!-- Nav Item - Categories -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="/admin/cat">
             <i class="fas fa-fw fa-briefcase"></i>
             <span><spring:message code="app.admin.sidebar.list-items.categories"/></span></a>
     </li>

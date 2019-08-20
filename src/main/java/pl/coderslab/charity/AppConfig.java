@@ -1,14 +1,11 @@
 package pl.coderslab.charity;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.server.ErrorPageRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -31,14 +28,11 @@ import java.util.Locale;
 @EnableJpaRepositories(basePackages = "pl.coderslab.charity")
 public class AppConfig implements WebMvcConfigurer {
 
+    @Autowired
     private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
-    private MyErrorPageRegistry myErrorPageRegistry;
 
     @Autowired
-    public AppConfig(RequestMappingHandlerAdapter requestMappingHandlerAdapter, MyErrorPageRegistry myErrorPageRegistry) {
-        this.requestMappingHandlerAdapter = requestMappingHandlerAdapter;
-        this.myErrorPageRegistry = myErrorPageRegistry;
-    }
+    private MyErrorPageRegistry myErrorPageRegistry;
 
     @PostConstruct
     public void init() {

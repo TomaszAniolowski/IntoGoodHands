@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,6 +19,10 @@ public class DonationService {
     @Autowired
     public DonationService(DonationRepository donationRepository) {
         this.donationRepository = donationRepository;
+    }
+
+    public List<Donation> getAll() {
+        return donationRepository.findAll();
     }
 
     public void save(Donation donation){
