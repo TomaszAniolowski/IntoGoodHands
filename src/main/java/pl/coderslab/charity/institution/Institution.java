@@ -3,6 +3,7 @@ package pl.coderslab.charity.institution;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.charity.variableEntity.VariableEntity;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "institutions")
-public class Institution {
+public class Institution implements VariableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

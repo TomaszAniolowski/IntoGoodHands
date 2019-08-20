@@ -6,6 +6,7 @@ import java.util.Locale;
 public interface UserService {
     User findByUsername(String username);
     User findByUserEmail(String email);
+    User findByUserId(Long id);
     List<User> getUsers();
     List<User> getAdmins();
     void saveUser(User user);

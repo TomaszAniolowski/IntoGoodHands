@@ -3,6 +3,7 @@ package pl.coderslab.charity.user;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.charity.variableEntity.VariableEntity;
 import pl.coderslab.charity.role.Role;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.Set;
 @Getter
 @Data
 @Entity
-public class User {
+public class User implements VariableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

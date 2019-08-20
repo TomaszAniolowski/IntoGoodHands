@@ -12,11 +12,16 @@ public class MyErrorPageRegistry implements ErrorPageRegistrar {
     @Override
     public void registerErrorPages(ErrorPageRegistry registry) {
         registry.addErrorPages(
-                setNotFoundErrorPage());
+                setNotFoundErrorPage(),
+                setInternalServerErrorPage());
     }
 
     private ErrorPage setNotFoundErrorPage() {
         return new ErrorPage(HttpStatus.NOT_FOUND, "/404");
+    }
+
+    private ErrorPage setInternalServerErrorPage() {
+        return new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500");
     }
 
 }

@@ -65,6 +65,7 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/404").setViewName("404");
+        registry.addViewController("/500").setViewName("500");
     }
 
     // === VIEWRESOLVER

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.institution.Institution;
+import pl.coderslab.charity.variableEntity.VariableEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -19,7 +20,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "donations")
-public class Donation {
+public class Donation implements VariableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

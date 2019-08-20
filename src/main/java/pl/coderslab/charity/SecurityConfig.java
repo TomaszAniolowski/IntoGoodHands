@@ -23,7 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/donations/form").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/admin/**").hasAnyRole("ADMIN")
+                // TODO: uncomment next line
+                //.antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .anyRequest().permitAll()
                 .and().formLogin().successHandler(localeSuccessHandler).loginPage("/login")
                 .and().logout().invalidateHttpSession(true).logoutSuccessUrl("/").permitAll()

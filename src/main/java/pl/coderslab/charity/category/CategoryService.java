@@ -23,6 +23,14 @@ public class CategoryService {
         this.donationRepository = donationRepository;
     }
 
+    public void save(Category category) {
+        categoryRepository.save(category);
+    }
+
+    public Category findByCategoryId(Long id) {
+        return categoryRepository.getOne(id);
+    }
+
     public List<Category> getAll(){
         return categoryRepository.getAllByOrderById();
     }

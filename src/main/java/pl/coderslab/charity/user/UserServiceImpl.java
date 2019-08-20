@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUserId(Long id) {
+        return userRepository.getOne(id);
+    }
+
+    @Override
     public List<User> getUsers() {
         return userRepository.getUsersByRoles(roleRepository.findByName("ROLE_USER"));
     }

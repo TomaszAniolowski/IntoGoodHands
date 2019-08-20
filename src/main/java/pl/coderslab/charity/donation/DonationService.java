@@ -21,6 +21,10 @@ public class DonationService {
         this.donationRepository = donationRepository;
     }
 
+    public Donation findByDonationId(Long id) {
+        return donationRepository.getOne(id);
+    }
+
     public List<Donation> getAll() {
         return donationRepository.findAll();
     }
