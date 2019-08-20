@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -41,89 +42,99 @@ public class AdminController {
         this.categoryService = categoryService;
     }
 
+
+
     @RequestMapping("/desk")
     public String displayAdminDesk(Model model, HttpSession session) {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
-//        Boolean allowed = (Boolean)session.getAttribute("CHECKED_ADMIN_RIGHTS");
-//        if (allowed == null || !allowed) {
-//            SecurityContextHolder.clearContext();
-//            session.invalidate();
+//        if (checkRights(session)) {
+            model.addAttribute("monthDonationsQuantity", donationService.getThisMonthDonationsQuantity());
+            model.addAttribute("allDonationsQuantity", donationService.getAllDonationsQuantity());
+            model.addAttribute("allBagsQuantity", donationService.getAllBagsQuantity());
+            model.addAttribute("allInstitutionsQuantity", institutionService.countAll());
+            model.addAttribute("categories", categoryService.getAll());
+            model.addAttribute("categoriesAndDonationsMap", categoryService.getCategoriesAndDonationsQuantityMap());
+            return "admin/index";
+//        } else {
 //            return "redirect:/";
 //        }
-
-        model.addAttribute("monthDonationsQuantity", donationService.getThisMonthDonationsQuantity());
-        model.addAttribute("allDonationsQuantity", donationService.getAllDonationsQuantity());
-        model.addAttribute("allBagsQuantity", donationService.getAllBagsQuantity());
-        model.addAttribute("allInstitutionsQuantity", institutionService.countAll());
-        model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("categoriesAndDonationsMap", categoryService.getCategoriesAndDonationsQuantityMap());
-        return "admin/index";
     }
 
     @RequestMapping("/inst")
-    public String displayInstitutionList(Model model) {
+    public String displayInstitutionList(Model model, HttpSession session) {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
-//        Boolean allowed = (Boolean)session.getAttribute("CHECKED_ADMIN_RIGHTS");
-//        if (allowed == null || !allowed) {
-//            SecurityContextHolder.clearContext();
-//            session.invalidate();
+
+//        if (checkRights(session)) {
+            model.addAttribute("institutions", institutionService.getAll());
+            return "admin/institutions";
+//        } else {
 //            return "redirect:/";
 //        }
 
-        model.addAttribute("institutions", institutionService.getAll());
-        return "admin/institutions";
     }
 
     @RequestMapping("/cat")
-    public String displayCategoryList(Model model) {
+    public String displayCategoryList(Model model, HttpSession session) {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
-//        Boolean allowed = (Boolean)session.getAttribute("CHECKED_ADMIN_RIGHTS");
-//        if (allowed == null || !allowed) {
-//            SecurityContextHolder.clearContext();
-//            session.invalidate();
+//        if (checkRights(session)) {
+            model.addAttribute("categories", categoryService.getAll());
+            return "admin/categories";
+//        } else {
 //            return "redirect:/";
 //        }
 
-        model.addAttribute("categories", categoryService.getAll());
-        return "admin/categories";
     }
 
     @RequestMapping("/don")
-    public String displayDonationList(Model model) {
+    public String displayDonationList(Model model, HttpSession session) {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
-//        Boolean allowed = (Boolean)session.getAttribute("CHECKED_ADMIN_RIGHTS");
-//        if (allowed == null || !allowed) {
-//            SecurityContextHolder.clearContext();
-//            session.invalidate();
+//        if (checkRights(session)) {
+            model.addAttribute("donations", donationService.getAll());
+            return "admin/donations";
+//        } else {
 //            return "redirect:/";
 //        }
 
-        model.addAttribute("donations", donationService.getAll());
-        return "admin/donations";
     }
 
     @RequestMapping("/users/{role}")
-    public String displayInstitutionList(Model model, @PathVariable String role, HttpServletResponse response) throws IOException {
+    public String displayInstitutionList(Model model, @PathVariable String role, HttpServletResponse response, HttpSession session) throws IOException {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
-//        Boolean allowed = (Boolean)session.getAttribute("CHECKED_ADMIN_RIGHTS");
-//        if (allowed == null || !allowed) {
-//            SecurityContextHolder.clearContext();
-//            session.invalidate();
+//        if (checkRights(session)) {
+            List<User> users = getUsers(role);
+            if (users == null) {
+                response.sendError(404);
+                return null;
+            } else {
+                model.addAttribute("users", users);
+                model.addAttribute("role", role);
+                return "admin/users";
+            }
+//        } else {
 //            return "redirect:/";
 //        }
+    }
 
-        if (role.equals("adm"))
-            model.addAttribute("users", userService.getAdmins());
-        else if (role.equals("ord"))
-            model.addAttribute("users", userService.getUsers());
-        else {
-            response.sendError(404);
-            return null;
+
+    private boolean checkRights(HttpSession session) {
+        Boolean allowed = (Boolean) session.getAttribute("CHECKED_ADMIN_RIGHTS");
+        if (allowed == null || !allowed) {
+            SecurityContextHolder.clearContext();
+            session.invalidate();
+            return false;
         }
 
-        model.addAttribute("role", role);
+        return true;
+    }
 
-        return "admin/users";
+    private List<User> getUsers(String role) {
+        if (role.equals("adm"))
+            return userService.getAdmins();
+        else if (role.equals("ord"))
+            return userService.getUsers();
+        else {
+            return null;
+        }
     }
 
 }
