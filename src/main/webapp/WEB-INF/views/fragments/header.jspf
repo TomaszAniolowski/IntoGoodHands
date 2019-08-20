@@ -1,11 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <nav class="container container--70">
     <div id="locale">
-        <span data-value="en">English</span>
-        <span data-value="pl">Polish</span>
+        <img src="<c:url value="/resources/images/icon-uk-flag.png"/>" data-value="en" alt="english" width="34px"
+             height="17px"/>
+        <img src="<c:url value="/resources/images/icon-polish-flag.png"/>" data-value="pl" alt="polish" width="34px"
+             height="17px"/>
     </div>
     <sec:authorize access="hasAnyRole('USER', 'ADMIN')">
         <ul class="nav--actions">
@@ -15,12 +18,15 @@
                     <li><a href="#"><spring:message code="app.header.user.profile"/></a></li>
                     <li><a href="#"><spring:message code="app.header.user.settings"/></a></li>
                     <li><a href="#"><spring:message code="app.header.user.collections"/></a></li>
+                    <sec:authorize access="hasAnyRole('ADMIN')">
+                        <li><a href="/lAsA"><spring:message code="app.header.user.login-as-admin"/></a></li>
+                    </sec:authorize>
 
                     <li>
-                    <form action="<c:url value="/logout"/>" method="post">
-                        <input type="submit" value="<spring:message code="app.header.user.logout"/>">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                    </form>
+                        <form action="<c:url value="/logout"/>" method="post">
+                            <input type="submit" value="<spring:message code="app.header.user.logout"/>">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        </form>
                     </li>
                 </ul>
             </li>
@@ -29,7 +35,8 @@
     <sec:authorize access="isAnonymous()">
         <ul class="nav--actions">
             <li><a href="/login"><spring:message code="app.header.anonymous.login"/></a></li>
-            <li class="highlighted"><a href="/register"><spring:message code="app.header.anonymous.create-account"/></a></li>
+            <li class="highlighted"><a href="/register"><spring:message code="app.header.anonymous.create-account"/></a>
+            </li>
         </ul>
     </sec:authorize>
 

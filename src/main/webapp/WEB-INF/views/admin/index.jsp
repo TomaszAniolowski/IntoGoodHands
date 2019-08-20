@@ -20,6 +20,7 @@
 
     <!-- Custom styles for this template-->
     <link href="<c:url value="/resources/admin/css/sb-admin-2.min.css"/>" rel="stylesheet">
+    <link href="<c:url value="/resources/admin/css/my-style.css"/>" rel="stylesheet">
 
 </head>
 
@@ -134,7 +135,7 @@
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${allInstitutionsQuantity}</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                                        <i class="fas fa-handshake fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>
@@ -236,7 +237,10 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <form action="<c:url value="/logout"/>" method="post">
+                        <button class="btn btn-primary" type="submit"><spring:message code="app.header.user.logout"/></button>
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
                 </div>
             </div>
         </div>

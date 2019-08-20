@@ -1,6 +1,7 @@
 package pl.coderslab.charity.user;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.category.CategoryService;
 import pl.coderslab.charity.donation.DonationService;
 import pl.coderslab.charity.institution.InstitutionService;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
@@ -34,7 +37,15 @@ public class AdminController {
     }
 
     @RequestMapping("/desk")
-    public String displayAdminDesk(Model model){
+    public String displayAdminDesk(Model model, HttpSession session){
+        //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
+//        Boolean allowed = (Boolean)session.getAttribute("CHECKED_ADMIN_RIGHTS");
+//        if (allowed == null || !allowed) {
+//            SecurityContextHolder.clearContext();
+//            session.invalidate();
+//            return "redirect:/";
+//        }
+
         model.addAttribute("monthDonationsQuantity", donationService.getThisMonthDonationsQuantity());
         model.addAttribute("allDonationsQuantity", donationService.getAllDonationsQuantity());
         model.addAttribute("allBagsQuantity", donationService.getAllBagsQuantity());

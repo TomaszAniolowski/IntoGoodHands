@@ -1,0 +1,25 @@
+#locale {
+    margin-top: 10px;
+    cursor: pointer;
+    height: 15px;
+}
+
+#locale img {
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.flag-shadow {
+    -webkit-box-shadow: 0 0.15rem 0.7rem 0 #e74a3b !important;
+    box-shadow: 0 0.15rem 0.7rem 0 #e74a3b !important;
+
+}
+
+.m-height-600 {
+    min-height: 600px;
+}
+
+.four-zero-four {
+    margin-top: 200px;
+}
