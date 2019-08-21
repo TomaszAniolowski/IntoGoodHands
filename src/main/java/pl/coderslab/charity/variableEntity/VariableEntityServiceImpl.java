@@ -1,6 +1,7 @@
 package pl.coderslab.charity.variableEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.category.Category;
 import pl.coderslab.charity.category.CategoryService;
@@ -13,6 +14,7 @@ import pl.coderslab.charity.user.UserService;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -76,6 +78,27 @@ public class VariableEntityServiceImpl implements VariableEntityService {
             donationService.save((Donation) dataObject);
         } else {
             throw new ClassNotFoundException("Can't save object of other type than User, Category, Institution and Donation.");
+        }
+    }
+
+    @Override
+    public List<? extends VariableEntity> getAllObjects(String instance, String mode) throws ClassNotFoundException {
+        switch (instance) {
+            case "USERS":
+                if ("ord".equals(mode))
+                    return userService.getUsers();
+                else if ("adm".equals(mode))
+                    return userService.getAdmins();
+                else
+                    throw new ClassNotFoundException("Can't find role of user.");
+            case "CATEGORIES":
+                return categoryService.getAll();
+            case "INSTITUTIONS":
+                return institutionService.getAll();
+            case "DONATIONS":
+                return donationService.getAll();
+            default:
+                throw new ClassNotFoundException("Can't get object of other type than User, Category, Institution and Donation.");
         }
     }
 

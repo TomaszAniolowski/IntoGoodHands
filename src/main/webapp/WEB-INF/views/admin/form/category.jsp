@@ -11,7 +11,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- TODO: adapt title to every page -->
     <title><spring:message code="app.admin.title"/></title>
 
     <!-- Custom fonts for this template-->
@@ -48,8 +47,8 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <!-- TODO: c:choose: new or edit-->
-                    <h1 class="h3 mb-0 text-gray-800">Edytuj instytucję</h1>
-<%--                    <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.sidebar.main.into-good-hands"/></h1>--%>
+                    <h1 class="h3 mb-0 text-gray-800">Edytuj kategorię</h1>
+                    <%--                    <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.sidebar.main.into-good-hands"/></h1>--%>
                 </div>
 
                 <!-- Content Row -->
@@ -57,70 +56,63 @@
 
                     <div class="card shadow mb-4 entity-form">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Instytucja</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Kategoria</h6>
                         </div>
                         <div class="card-body">
-                            <form:form method="post" modelAttribute="institution">
+                            <form:form method="post" modelAttribute="category">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="basic-addon3">Name</span>
                                     </div>
-                                    <form:input path="name" class="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                                    <form:input path="name" class="form-control" id="basic-url"
+                                                aria-describedby="basic-addon3"/>
                                     <form:errors path="name" cssClass="alert alert-danger" element="div"/>
                                 </div>
-                                <div class="input-group mb-5">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">Purpose and mission</span>
-                                    </div>
-                                    <form:textarea path="description" class="form-control" aria-label="Purpose and mission"/>
-                                    <form:errors path="description" cssClass="alert alert-danger" element="div"/>
-
-                                </div>
                                 <div class="input-group">
-                                <button type="submit" class="btn btn-warning btn-lg btn-block">Zapisz</button>
+                                    <button type="submit" class="btn btn-warning btn-lg btn-block">Zapisz</button>
                                 </div>
                             </form:form>
                         </div>
                     </div>
 
 
-                <!-- /.container-fluid -->
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <%@include file="/WEB-INF/views/admin/fragments/admin-footer.jspf" %>
 
             </div>
-            <!-- End of Main Content -->
-
-            <%@include file="/WEB-INF/views/admin/fragments/admin-footer.jspf" %>
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+        <!-- Logout Modal-->
+        <%@include file="/WEB-INF/views/admin/fragments/admin-logout-modal.jspf" %>
 
-    <!-- Logout Modal-->
-        <%@include file="/WEB-INF/views/admin/fragments/admin-logout-modal.jspf"%>
+        <!-- Bootstrap core JavaScript-->
+        <script src="<c:url value="/resources/admin/vendor/jquery/jquery.min.js"/>"></script>
+        <script src="<c:url value="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="<c:url value="/resources/admin/vendor/jquery/jquery.min.js"/>"></script>
-    <script src="<c:url value="/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"/>"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="<c:url value="/resources/admin/vendor/jquery-easing/jquery.easing.min.js"/>"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="<c:url value="/resources/admin/vendor/jquery-easing/jquery.easing.min.js"/>"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="<c:url value="/resources/admin/js/sb-admin-2.js"/>"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="<c:url value="/resources/admin/js/sb-admin-2.js"/>"></script>
+        <!-- Page level plugins -->
+        <script src="<c:url value="/resources/admin/vendor/chart.js/Chart.min.js"/>"></script>
 
-    <!-- Page level plugins -->
-    <script src="<c:url value="/resources/admin/vendor/chart.js/Chart.min.js"/>"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="<c:url value="/resources/admin/js/demo/chart-area-demo.js"/>"></script>
-    <script src="<c:url value="/resources/admin/js/demo/chart-pie-demo.js"/>"></script>
+        <!-- Page level custom scripts -->
+        <script src="<c:url value="/resources/admin/js/demo/chart-area-demo.js"/>"></script>
+        <script src="<c:url value="/resources/admin/js/demo/chart-pie-demo.js"/>"></script>
 
 </body>
 
