@@ -6,30 +6,16 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Service
-@Transactional
-public class InstitutionService {
 
-    private InstitutionRepository institutionRepository;
+public interface InstitutionService {
 
-    @Autowired
-    public InstitutionService(InstitutionRepository institutionRepository) {
-        this.institutionRepository = institutionRepository;
-    }
+    void save (Institution institution);
 
-    public void save (Institution institution) {
-        institutionRepository.save(institution);
-    }
+    void removeInstitution(Institution institution);
 
-    public Institution findByInstitutionId(Long id) {
-        return institutionRepository.getOne(id);
-    }
+    Institution findByInstitutionId(Long id);
 
-    public List<Institution> getAll(){
-        return institutionRepository.findAll();
-    }
+    List<Institution> getAll();
 
-    public Long countAll(){
-        return institutionRepository.count();
-    }
+    Long countAll();
 }

@@ -9,6 +9,7 @@ public interface UserService {
     User findByUserId(Long id);
     List<User> getUsers();
     List<User> getAdmins();
+    void removeUser(User user);
     void saveUser(User user);
     void setLocale(String username, Locale locale);
     String getUsersLocale(String username);

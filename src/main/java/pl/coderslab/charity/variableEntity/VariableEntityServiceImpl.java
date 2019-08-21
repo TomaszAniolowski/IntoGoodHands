@@ -85,4 +85,19 @@ public class VariableEntityServiceImpl implements VariableEntityService {
             throw new ClassNotFoundException("Can't save object of other type than User, Category, Institution and Donation.");
         }
     }
+
+    @Override
+    public void removeObject(VariableEntity dataObject) throws ClassNotFoundException {
+        if (dataObject instanceof User) {
+            userService.removeUser((User) dataObject);
+        } else if (dataObject instanceof Category) {
+            categoryService.removeCategory((Category) dataObject);
+        } else if (dataObject instanceof Institution) {
+            institutionService.removeInstitution((Institution) dataObject);
+        } else if (dataObject instanceof Donation) {
+            donationService.removeDonation((Donation) dataObject);
+        } else {
+            throw new ClassNotFoundException("Can't remove object of other type than User, Category, Institution and Donation.");
+        }
+    }
 }

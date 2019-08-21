@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void removeUser(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
     public void saveUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setEnabled(1);
@@ -77,6 +82,7 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
     public boolean checkUser(User user) {
         //TODO: send email if user with such an email address exists
         return this.findByUserEmail(user.getEmail()) == null && this.findByUsername(user.getUsername()) == null;

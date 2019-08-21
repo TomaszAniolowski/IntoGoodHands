@@ -10,56 +10,20 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-@Service
-@Transactional
-public class DonationService {
 
-    private DonationRepository donationRepository;
+public interface DonationService {
 
-    @Autowired
-    public DonationService(DonationRepository donationRepository) {
-        this.donationRepository = donationRepository;
-    }
+    Donation findByDonationId(Long id);
 
-    public Donation findByDonationId(Long id) {
-        return donationRepository.getOne(id);
-    }
+    List<Donation> getAll();
 
-    public List<Donation> getAll() {
-        return donationRepository.findAll();
-    }
+    void removeDonation(Donation donation);
 
-    public void save(Donation donation){
-        donationRepository.save(donation);
-    }
+    void save(Donation donation);
 
-    public Integer getAllBagsQuantity() {
-        return (Integer) ifNull(donationRepository.sumAllBagsQuantity(), 0);
-    }
+    Integer getAllBagsQuantity();
 
-    public Long getAllDonationsQuantity(){
-        return donationRepository.count();
-    }
+    Long getAllDonationsQuantity();
 
-    public Integer getThisMonthDonationsQuantity() {
-        String currentYear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
-        String currentMonth = getCurrentMonth();
-        return  donationRepository.getThisMonthDonationsQuantity(currentYear + "-" + currentMonth);
-    }
-
-    private Object ifNull(Object basic, Object alternative) {
-        if (basic != null)
-            return basic;
-        else
-            return alternative;
-    }
-
-    private String getCurrentMonth() {
-        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-
-        if(currentMonth < 10)
-            return "0" + currentMonth;
-        else
-            return String.valueOf(currentMonth);
-    }
+     Integer getThisMonthDonationsQuantity();
 }

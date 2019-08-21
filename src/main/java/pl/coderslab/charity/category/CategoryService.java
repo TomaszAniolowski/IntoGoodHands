@@ -10,35 +10,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
-@Transactional
-public class CategoryService {
+public interface CategoryService {
 
-    private CategoryRepository categoryRepository;
-    private DonationRepository donationRepository;
+    void save(Category category);
 
-    @Autowired
-    public CategoryService(CategoryRepository categoryRepository, DonationRepository donationRepository) {
-        this.categoryRepository = categoryRepository;
-        this.donationRepository = donationRepository;
-    }
+    void removeCategory(Category category);
 
-    public void save(Category category) {
-        categoryRepository.save(category);
-    }
+    Category findByCategoryId(Long id);
 
-    public Category findByCategoryId(Long id) {
-        return categoryRepository.getOne(id);
-    }
+    List<Category> getAll();
 
-    public List<Category> getAll(){
-        return categoryRepository.getAllByOrderById();
-    }
-
-    public Map<String, Integer> getCategoriesAndDonationsQuantityMap(){
-        Map<String, Integer> quantities = new HashMap<>();
-        categoryRepository.findAll().forEach(c -> quantities.put(c.getName(), donationRepository.countAllByCategories(c)));
-        return quantities;
-    }
+    Map<String, Integer> getCategoriesAndDonationsQuantityMap();
 
 }
