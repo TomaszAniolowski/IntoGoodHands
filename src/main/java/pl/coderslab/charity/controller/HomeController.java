@@ -12,6 +12,8 @@ import pl.coderslab.charity.donation.DonationService;
 import pl.coderslab.charity.institution.InstitutionService;
 import pl.coderslab.charity.user.CurrentUser;
 
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class HomeController {
@@ -45,5 +47,12 @@ public class HomeController {
     @GetMapping("/international")
     public String international(@RequestParam String prev){
         return "redirect:" + prev;
+    }
+
+    @GetMapping("/500")
+    public String InternalServerError(Model model, HttpSession session){
+        model.addAttribute("message", session.getAttribute("actualErrorMessage"));
+        session.removeAttribute("actualErrorMessage");
+        return "500";
     }
 }

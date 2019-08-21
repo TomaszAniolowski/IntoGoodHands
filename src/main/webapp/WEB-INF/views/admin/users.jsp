@@ -100,8 +100,16 @@
                                             <a href="#" class="btn btn-info btn-circle">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>
-                                            <a href="#" class="btn btn-danger btn-circle">
+                                            <a href="/admin/user/rmv?id=${user.id}" class="btn btn-danger btn-circle"
+                                               data-toggle="modal"
+                                               data-target="#deleteModal"
+                                               data-item-id="${user.id}"
+                                               data-item-type="user"
+                                               data-item-name="${user.username}"
+                                               title="Remove user">
+
                                                 <i class="fas fa-user-minus"></i>
+
                                             </a>
                                             <c:choose>
                                                 <c:when test="${role == 'adm'}">
@@ -159,6 +167,27 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Removing confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to remove user <span id="itemName"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="deleteId" type="button" class="btn btn-danger">Remove</button>
             </div>
         </div>
     </div>

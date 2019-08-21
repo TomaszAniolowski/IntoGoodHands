@@ -1,6 +1,5 @@
 package pl.coderslab.charity.user;
 
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,7 +20,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.validation.constraints.Pattern;
 import java.io.IOException;
 import java.util.List;
 
@@ -137,6 +135,7 @@ public class AdminController {
             return null;
         } catch (EntityNotFoundException n) {
             n.printStackTrace();
+            session.setAttribute("actualErrorMessage", n.getMessage());
             response.sendError(500);
             return null;
         }
@@ -154,7 +153,7 @@ public class AdminController {
         if (result.hasErrors())
             return "admin/user/form";
 
-        boolean effect = saveObject(user);
+        boolean effect = saveObject(user, session);
 
         if (effect)
             return "redirect:/admin/desk";
@@ -176,7 +175,7 @@ public class AdminController {
         if (result.hasErrors())
             return "admin/category/form";
 
-        boolean effect = saveObject(category);
+        boolean effect = saveObject(category, session);
 
         if (effect)
             return "redirect:/admin/desk";
@@ -198,7 +197,7 @@ public class AdminController {
         if (result.hasErrors())
             return "admin/institution/form";
 
-        boolean effect = saveObject(institution);
+        boolean effect = saveObject(institution, session);
 
         if (effect)
             return "redirect:/admin/desk";
@@ -220,7 +219,7 @@ public class AdminController {
         if (result.hasErrors())
             return "admin/donation/form";
 
-        boolean effect = saveObject(donation);
+        boolean effect = saveObject(donation, session);
 
         if (effect)
             return "redirect:/admin/desk";
@@ -234,7 +233,7 @@ public class AdminController {
     }
 
     @RequestMapping("/{typeOfEntity:user|category|institution|donation}/rmv")
-    public String removeObject(@PathVariable String typeOfEntity, @RequestParam Long id, HttpServletResponse response) throws IOException {
+    public String removeObject(@PathVariable String typeOfEntity, @RequestParam Long id, HttpServletResponse response, HttpSession session) throws IOException {
 //        if (checkRights(session)) {
         try {
             variableEntityService.removeObject(typeOfEntity.toUpperCase(), id);
@@ -244,6 +243,7 @@ public class AdminController {
             return null;
         } catch (EntityNotFoundException n) {
             n.printStackTrace();
+            session.setAttribute("actualErrorMessage", n.getMessage());
             response.sendError(500);
             return null;
         }
@@ -275,12 +275,13 @@ public class AdminController {
         }
     }
 
-    private boolean saveObject(VariableEntity variableEntity) {
+    private boolean saveObject(VariableEntity variableEntity, HttpSession session) {
         try {
             variableEntityService.saveObject(variableEntity);
             return true;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            session.setAttribute("actualErrorMessage", e.getMessage());
             return false;
         }
     }

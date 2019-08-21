@@ -18,7 +18,7 @@
                     <li><a href="#"><spring:message code="app.header.user.profile"/></a></li>
                     <li><a href="#"><spring:message code="app.header.user.settings"/></a></li>
                     <li><a href="#"><spring:message code="app.header.user.collections"/></a></li>
-                    <sec:authorize access="hasAnyRole('ADMIN')">
+                    <sec:authorize access="hasRole('ADMIN')">
                         <li><a href="/lAsA"><spring:message code="app.header.user.login-as-admin"/></a></li>
                     </sec:authorize>
 

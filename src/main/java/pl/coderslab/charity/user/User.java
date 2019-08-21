@@ -31,6 +31,7 @@ public class User implements VariableEntity {
 
     private int enabled;
 
+    //TODO: change ManyToMany -> ManyToOne
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),

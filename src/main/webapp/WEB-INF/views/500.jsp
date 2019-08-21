@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +13,7 @@
     <meta name="author" content="">
 
     <!-- TODO: messages.properties -->
-    <title>SB Admin 2 - 404</title>
+    <title>SB Admin 2 - 500</title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -45,7 +46,13 @@
                 <div class="text-center">
                     <div class="error mx-auto" data-text="500">500</div>
                     <p class="lead text-gray-800 mb-5">Internal Server Error</p>
-                    <p class="text-gray-500 mb-0">It looks like we or you have broken something... </p>
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <p class="text-gray-500 mb-0"><c:out value="${message}" default="It looks like we or you have broken something..."/></p>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('USER') || isAnonymous()">
+                        <p class="text-gray-500 mb-0">It looks like we or you have broken something...</p>
+                    </sec:authorize>
+
                     <a href="/">&larr; Back to Home Page</a>
                 </div>
 
