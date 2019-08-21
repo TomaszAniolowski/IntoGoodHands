@@ -17,6 +17,7 @@ import pl.coderslab.charity.institution.InstitutionService;
 import pl.coderslab.charity.variableEntity.VariableEntity;
 import pl.coderslab.charity.variableEntity.VariableEntityService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -66,8 +67,8 @@ public class AdminController {
 //            return "redirect:/";
 //        }
     }
-
-    @RequestMapping("/inst")
+//TODO: unification of list-controllers
+    @RequestMapping("/institution/list")
     public String displayInstitutionList(Model model, HttpSession session) {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
 
@@ -80,7 +81,7 @@ public class AdminController {
 
     }
 
-    @RequestMapping("/cat")
+    @RequestMapping("/category/list")
     public String displayCategoryList(Model model, HttpSession session) {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
 //        if (checkRights(session)) {
@@ -92,7 +93,7 @@ public class AdminController {
 
     }
 
-    @RequestMapping("/don")
+    @RequestMapping("/donation/list")
     public String displayDonationList(Model model, HttpSession session) {
         //TODO: uncomment CHECKED_ADMIN_RIGHTS checking
 //        if (checkRights(session)) {
@@ -130,9 +131,13 @@ public class AdminController {
             VariableEntity instanceOfEntity = variableEntityService.getObject(typeOfEntity.toUpperCase(), id);
             model.addAttribute(typeOfEntity, instanceOfEntity);
             return "admin/form/" + typeOfEntity;
-        } catch (NotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
             response.sendError(404);
+            return null;
+        } catch (EntityNotFoundException n) {
+            n.printStackTrace();
+            response.sendError(500);
             return null;
         }
 //        } else {
@@ -145,7 +150,7 @@ public class AdminController {
                                      HttpSession session,
                                      @Valid User user,
                                      BindingResult result) throws IOException {
-        //        if (checkRights(session)) {
+//        if (checkRights(session)) {
         if (result.hasErrors())
             return "admin/user/form";
 
@@ -157,7 +162,7 @@ public class AdminController {
             response.sendError(500);
             return null;
         }
-        //        } else {
+//        } else {
 //            return "redirect:/";
 //        }
     }
@@ -167,7 +172,7 @@ public class AdminController {
                            HttpSession session,
                            @Valid Category category,
                            BindingResult result) throws IOException {
-        //        if (checkRights(session)) {
+//        if (checkRights(session)) {
         if (result.hasErrors())
             return "admin/category/form";
 
@@ -179,7 +184,7 @@ public class AdminController {
             response.sendError(500);
             return null;
         }
-        //        } else {
+//        } else {
 //            return "redirect:/";
 //        }
     }
@@ -189,7 +194,7 @@ public class AdminController {
                            HttpSession session,
                            @Valid Institution institution,
                            BindingResult result) throws IOException {
-        //        if (checkRights(session)) {
+//        if (checkRights(session)) {
         if (result.hasErrors())
             return "admin/institution/form";
 
@@ -201,7 +206,7 @@ public class AdminController {
             response.sendError(500);
             return null;
         }
-        //        } else {
+//        } else {
 //            return "redirect:/";
 //        }
     }
@@ -211,7 +216,7 @@ public class AdminController {
                            HttpSession session,
                            @Valid Donation donation,
                            BindingResult result) throws IOException {
-        //        if (checkRights(session)) {
+//        if (checkRights(session)) {
         if (result.hasErrors())
             return "admin/donation/form";
 
@@ -223,9 +228,29 @@ public class AdminController {
             response.sendError(505);
             return null;
         }
-        //        } else {
+//        } else {
 //            return "redirect:/";
 //        }
+    }
+
+    @RequestMapping("/{typeOfEntity:user|category|institution|donation}/rmv")
+    public String removeObject(@PathVariable String typeOfEntity, @RequestParam Long id, HttpServletResponse response) throws IOException {
+//        if (checkRights(session)) {
+        try {
+            variableEntityService.removeObject(typeOfEntity.toUpperCase(), id);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            response.sendError(404);
+            return null;
+        } catch (EntityNotFoundException n) {
+            n.printStackTrace();
+            response.sendError(500);
+            return null;
+        }
+//        } else {
+//            return "redirect:/";
+//        }
+        return "redirect:/admin/" + typeOfEntity + "/list";
     }
 
 

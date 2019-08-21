@@ -49,7 +49,7 @@
         e.preventDefault();
     });
 
-    //Set attributes of the progress-bars
+    // Set attributes of the progress-bars
     var progressBarList = $('.progress .progress-bar');
     progressBarList.each(function () {
         var now = $(this).attr('aria-valuenow');
@@ -59,6 +59,17 @@
         $(this).css("width", percent);
         $(this).text(percent);
         $(this).addClass(getColor(part));
+    });
+
+    // Delete modal
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var itemId = $(event.relatedTarget).data('item-id');
+        var itemName = $(event.relatedTarget).data('item-name');
+        var itemType = $(event.relatedTarget).data('item-type');
+        $(this).find('.modal-body p #itemName').text(itemName);
+        $('#deleteId').on('click', function () {
+            window.location.href = "/admin/" + itemType + "/rmv?id=" + itemId;
+        })
     });
 
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -26,8 +27,8 @@ public class InstitutionServiceImpl implements InstitutionService{
         institutionRepository.save(institution);
     }
 
-    public Institution findByInstitutionId(Long id) {
-        return institutionRepository.getOne(id);
+    public Optional<Institution> findByInstitutionId(Long id) {
+        return institutionRepository.findById(id);
     }
 
     public List<Institution> getAll(){

@@ -7,10 +7,7 @@ import pl.coderslab.charity.role.Role;
 import pl.coderslab.charity.role.RoleRepository;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Service
 @Transactional
@@ -28,8 +25,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUserId(Long id) {
-        return userRepository.getOne(id);
+    public Optional<User> findByUserId(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override

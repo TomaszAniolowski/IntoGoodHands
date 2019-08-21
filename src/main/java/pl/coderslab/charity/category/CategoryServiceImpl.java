@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -31,8 +32,8 @@ public class CategoryServiceImpl implements CategoryService{
         categoryRepository.delete(category);
     }
 
-    public Category findByCategoryId(Long id) {
-        return categoryRepository.getOne(id);
+    public Optional<Category> findByCategoryId(Long id) {
+        return categoryRepository.findById(id);
     }
 
     public List<Category> getAll(){

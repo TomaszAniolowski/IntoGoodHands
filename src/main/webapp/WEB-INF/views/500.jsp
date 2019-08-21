@@ -43,7 +43,7 @@
                 <!-- 404 Error Text -->
                 <!-- TODO: messages.properties -->
                 <div class="text-center">
-                    <div class="error mx-auto" data-text="404">500</div>
+                    <div class="error mx-auto" data-text="500">500</div>
                     <p class="lead text-gray-800 mb-5">Internal Server Error</p>
                     <p class="text-gray-500 mb-0">It looks like we or you have broken something... </p>
                     <a href="/">&larr; Back to Home Page</a>

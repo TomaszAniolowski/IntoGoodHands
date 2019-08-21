@@ -1,6 +1,5 @@
 package pl.coderslab.charity.variableEntity;
 
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.category.Category;
@@ -12,6 +11,7 @@ import pl.coderslab.charity.institution.InstitutionService;
 import pl.coderslab.charity.user.User;
 import pl.coderslab.charity.user.UserService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 @Service
@@ -32,43 +32,36 @@ public class VariableEntityServiceImpl implements VariableEntityService {
     }
 
     @Override
-    public VariableEntity getObject(String instance, Long id) throws NotFoundException {
-        VariableEntity entity = null;
+    public VariableEntity getObject(String instance, Long id) throws ClassNotFoundException, EntityNotFoundException {
+
         switch (instance) {
             case "USER":
                 if (id == null)
-                    entity = new User();
+                    return new User();
                 else {
-                    entity = userService.findByUserId(id);
+                    return userService.findByUserId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
                 }
-                break;
             case "CATEGORY":
                 if (id == null)
-                    entity = new Category();
+                    return new Category();
                 else {
-                    entity = categoryService.findByCategoryId(id);
+                    return categoryService.findByCategoryId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
                 }
-                break;
             case "INSTITUTION":
                 if (id == null)
-                    entity = new Institution();
+                    return new Institution();
                 else {
-                    entity = institutionService.findByInstitutionId(id);
+                    return institutionService.findByInstitutionId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
                 }
-                break;
             case "DONATION":
                 if (id == null)
-                    entity = new Donation();
+                    return new Donation();
                 else {
-                    entity = donationService.findByDonationId(id);
+                    return donationService.findByDonationId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
                 }
-                break;
+            default:
+                throw new ClassNotFoundException("Can't get object of other type than User, Category, Institution and Donation.");
         }
-
-        if (entity == null)
-            throw new NotFoundException("Given object id or type is incorrect");
-        else
-            return entity;
     }
 
     @Override
@@ -87,17 +80,27 @@ public class VariableEntityServiceImpl implements VariableEntityService {
     }
 
     @Override
-    public void removeObject(VariableEntity dataObject) throws ClassNotFoundException {
-        if (dataObject instanceof User) {
-            userService.removeUser((User) dataObject);
-        } else if (dataObject instanceof Category) {
-            categoryService.removeCategory((Category) dataObject);
-        } else if (dataObject instanceof Institution) {
-            institutionService.removeInstitution((Institution) dataObject);
-        } else if (dataObject instanceof Donation) {
-            donationService.removeDonation((Donation) dataObject);
-        } else {
-            throw new ClassNotFoundException("Can't remove object of other type than User, Category, Institution and Donation.");
+    public void removeObject(String instance, Long id) throws ClassNotFoundException, EntityNotFoundException {
+        switch (instance) {
+            case "USER":
+                User user = userService.findByUserId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
+                userService.removeUser(user);
+                break;
+            case "CATEGORY":
+                Category category = categoryService.findByCategoryId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
+                categoryService.removeCategory(category);
+                break;
+            case "INSTITUTION":
+                Institution institution = institutionService.findByInstitutionId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
+                institutionService.removeInstitution(institution);
+                break;
+            case "DONATION":
+                Donation donation = donationService.findByDonationId(id).orElseThrow(() -> new EntityNotFoundException("No " + instance + " in database with id " + id));
+                donationService.removeDonation(donation);
+                break;
+            default:
+                throw new ClassNotFoundException("Can't remove object of other type than User, Category, Institution and Donation.");
         }
+
     }
 }

@@ -1,12 +1,12 @@
 package pl.coderslab.charity.variableEntity;
 
-import javassist.NotFoundException;
+import javax.persistence.EntityNotFoundException;
 
 public interface VariableEntityService {
 
     void saveObject(VariableEntity dataObject) throws ClassNotFoundException;
 
-    VariableEntity getObject(String instance, Long id) throws NotFoundException;
+    VariableEntity getObject(String instance, Long id) throws ClassNotFoundException;
 
-    void removeObject(VariableEntity dataObject) throws ClassNotFoundException;
+    void removeObject(String instance, Long id) throws ClassNotFoundException, EntityNotFoundException;
 }

@@ -1,10 +1,7 @@
 package pl.coderslab.charity.institution;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 
 public interface InstitutionService {
@@ -13,7 +10,7 @@ public interface InstitutionService {
 
     void removeInstitution(Institution institution);
 
-    Institution findByInstitutionId(Long id);
+    Optional<Institution> findByInstitutionId(Long id);
 
     List<Institution> getAll();
 

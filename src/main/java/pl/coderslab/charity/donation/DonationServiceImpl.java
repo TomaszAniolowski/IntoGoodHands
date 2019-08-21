@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -18,8 +19,8 @@ public class DonationServiceImpl implements DonationService{
         this.donationRepository = donationRepository;
     }
 
-    public Donation findByDonationId(Long id) {
-        return donationRepository.getOne(id);
+    public Optional<Donation> findByDonationId(Long id) {
+        return donationRepository.findById(id);
     }
 
     public List<Donation> getAll() {
