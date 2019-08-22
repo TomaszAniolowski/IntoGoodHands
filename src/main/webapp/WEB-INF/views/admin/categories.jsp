@@ -15,7 +15,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title><spring:message code="app.admin.title.categories"/></title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -55,7 +55,7 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary text-lg"><spring:message
                                 code="app.admin.categories.header"/></h6>
-                        <div class="text-right"><a href="#" class="btn btn-success btn-circle">
+                        <div class="text-right"><a href="/admin/category/form" class="btn btn-success btn-circle">
                             <i class="fas fa-plus"></i>
                         </a></div>
                     </div>

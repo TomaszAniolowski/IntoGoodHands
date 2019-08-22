@@ -11,8 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- TODO: adapt title to every page -->
-    <title><spring:message code="app.admin.title"/></title>
+    <title><spring:message code="app.admin.title.donation-form"/></title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -47,9 +46,7 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <!-- TODO: c:choose: new or edit-->
-                    <h1 class="h3 mb-0 text-gray-800">Edytuj darowiznę</h1>
-                    <%--                    <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.sidebar.main.into-good-hands"/></h1>--%>
+                    <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.form.donation.page-header"/></h1>
                 </div>
 
                 <!-- Content Row -->
@@ -57,13 +54,13 @@
 
                     <div class="card shadow mb-4 entity-form">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Darowizna</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><spring:message code="app.admin.form.donation.form-header"/></h6>
                         </div>
                         <div class="card-body">
                             <form:form method="post" modelAttribute="donation">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon3">Ilość worków</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.donation.quantity"/></span>
                                     </div>
                                     <div class="w-5">
                                         <form:input path="quantity" cssClass="form-control"/>
@@ -72,7 +69,7 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Ulica i numer</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.donation.street-with-num"/></span>
                                     </div>
                                     <form:input path="street" cssClass="form-control"/>
                                     <form:input path="streetNum" cssClass="form-control"/>
@@ -81,7 +78,7 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Kod pocztowy i miasto</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.donation.zip-code-with-city"/></span>
                                     </div>
                                     <form:input path="zipCode" class="form-control"/>
                                     <form:input path="city" class="form-control"/>
@@ -90,7 +87,7 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Data i godzina</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.donation.date-and-time"/></span>
                                     </div>
                                     <form:input path="pickUpDate" class="form-control"/>
                                     <form:input path="pickUpTime" class="form-control"/>
@@ -99,7 +96,7 @@
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Fundacja</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.donation.institution"/></span>
                                     </div>
                                     <form:select path="institution"
                                                  items="${institutions}"
@@ -108,11 +105,8 @@
                                                  class="custom-select"/>
                                 </div>
                                 <div class="form-group ml-1">
-                                    Kategorie:
+                                    <spring:message code="app.admin.form.donation.categories"/>:
                                     <div class="form-check form-check-inline mb-3 d-block">
-
-
-
                                         <form:checkboxes path="categories"
                                                          items="${categories}"
                                                          itemLabel="name"
@@ -124,22 +118,25 @@
 
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Numer telefonu</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.donation.phone-number"/></span>
                                     </div>
                                     <form:input path="phoneNumber" class="form-control"/>
                                     <form:errors path="phoneNumber" cssClass="alert alert-danger" element="div"/>
                                 </div>
                                 <div class="input-group mb-5">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Komentarz</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.donation.comment"/></span>
                                     </div>
                                     <form:textarea path="pickUpComment" class="form-control"/>
                                     <form:errors path="pickUpComment" cssClass="alert alert-danger" element="div"/>
                                 </div>
-                                <div class="input-group">
-                                    <button type="submit" class="btn btn-warning btn-lg btn-block">Zapisz</button>
+                                <div class="input-group mb-2">
+                                    <button type="submit" class="btn btn-warning btn-lg btn-block"><spring:message code="app.admin.form.save"/></button>
                                 </div>
                             </form:form>
+                            <div class="text-sm-center">
+                                <span class="back-button text-primary"><spring:message code="app.admin.form.back"/></span>
+                            </div>
                         </div>
                     </div>
 

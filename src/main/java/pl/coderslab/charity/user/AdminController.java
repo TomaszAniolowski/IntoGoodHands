@@ -85,6 +85,7 @@ public class AdminController {
             return "admin/" + typeOfEntity;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            //TODO: message from users locale (get it from context)
             session.setAttribute("actualErrorMessage", e.getMessage());
             response.sendError(500);
             return null;

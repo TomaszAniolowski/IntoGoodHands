@@ -27,3 +27,11 @@
 .entity-form {
     min-width: 1000px;
 }
+
+span.back-button {
+    cursor: pointer;
+}
+
+span.back-button:hover {
+    color: #224abe!important;
+}

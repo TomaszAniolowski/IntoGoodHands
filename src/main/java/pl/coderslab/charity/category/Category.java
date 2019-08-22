@@ -6,6 +6,7 @@ import lombok.Setter;
 import pl.coderslab.charity.variableEntity.VariableEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Setter
 @Getter
@@ -19,6 +20,7 @@ public class Category implements VariableEntity {
     private Long id;
 
     @Column(unique = true)
+    @NotEmpty
     private String name;
 
     @Override

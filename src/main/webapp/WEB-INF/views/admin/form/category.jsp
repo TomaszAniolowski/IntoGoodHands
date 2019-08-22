@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title><spring:message code="app.admin.title"/></title>
+    <title><spring:message code="app.admin.title.category-form"/></title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -46,32 +46,39 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <!-- TODO: c:choose: new or edit-->
-                    <h1 class="h3 mb-0 text-gray-800">Edytuj kategorię</h1>
-                    <%--                    <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.sidebar.main.into-good-hands"/></h1>--%>
-                </div>
+                    <c:choose>
+                        <c:when test="${empty category.name}">
+                            <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.form.category.page-header.new"/></h1>
+                        </c:when>
+                        <c:otherwise>
+                            <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.form.category.page-header.edit"/></h1>
+                        </c:otherwise>
+                    </c:choose>
+               </div>
 
                 <!-- Content Row -->
                 <div class="row second-row justify-content-center">
 
                     <div class="card shadow mb-4 entity-form">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Kategoria</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><spring:message code="app.admin.form.category.form-header"/></h6>
                         </div>
                         <div class="card-body">
                             <form:form method="post" modelAttribute="category">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon3">Name</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.category.name"/></span>
                                     </div>
-                                    <form:input path="name" class="form-control" id="basic-url"
-                                                aria-describedby="basic-addon3"/>
+                                    <form:input path="name" class="form-control" id="basic-url"/>
                                     <form:errors path="name" cssClass="alert alert-danger" element="div"/>
                                 </div>
-                                <div class="input-group">
-                                    <button type="submit" class="btn btn-warning btn-lg btn-block">Zapisz</button>
+                                <div class="input-group mb-2">
+                                    <button type="submit" class="btn btn-warning btn-lg btn-block"><spring:message code="app.admin.form.save"/></button>
                                 </div>
                             </form:form>
+                            <div class="text-sm-center">
+                                <span class="back-button text-primary"><spring:message code="app.admin.form.back"/></span>
+                            </div>
                         </div>
                     </div>
 

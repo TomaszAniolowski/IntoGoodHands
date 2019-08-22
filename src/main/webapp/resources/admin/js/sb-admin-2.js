@@ -72,6 +72,11 @@
         })
     });
 
+    $(document).on('click', 'span.back-button', function () {
+        history.back();
+    })
+
+
 
 })(jQuery); // End of use strict
 

@@ -11,8 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- TODO: adapt title to every page -->
-    <title><spring:message code="app.admin.title"/></title>
+    <title><spring:message code="app.admin.title.user-form"/></title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -46,8 +45,7 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <!-- TODO: c:choose: new or edit-->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4"
                     <h1 class="h3 mb-0 text-gray-800">Edytuj użytkownika</h1>
 <%--                    <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.sidebar.main.into-good-hands"/></h1>--%>
                 </div>
@@ -75,10 +73,13 @@
                                     <form:input path="email" class="form-control" id="basic-url" aria-describedby="basic-addon3"/>
                                     <form:errors path="email" cssClass="alert alert-danger" element="div"/>
                                 </div>
-                                <div class="input-group">
-                                <button type="submit" class="btn btn-warning btn-lg btn-block">Zapisz</button>
+                                <div class="input-group mb-2">
+                                <button type="submit" class="btn btn-warning btn-lg btn-block"><spring:message code="app.admin.form.save"/></button>
                                 </div>
                             </form:form>
+                            <div class="text-sm-center">
+                                <span class="back-button text-primary"><spring:message code="app.admin.form.back"/></span>
+                            </div>
                         </div>
                     </div>
 

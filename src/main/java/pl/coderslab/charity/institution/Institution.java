@@ -6,6 +6,7 @@ import lombok.Setter;
 import pl.coderslab.charity.variableEntity.VariableEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Setter
 @Getter
@@ -19,9 +20,11 @@ public class Institution implements VariableEntity {
     private Long id;
 
     @Column(unique = true)
+    @NotEmpty
     private String name;
 
     @Column(columnDefinition = "TEXT")
+    @NotEmpty
     private String description;
 
     @Override

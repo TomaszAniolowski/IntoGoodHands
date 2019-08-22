@@ -11,8 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- TODO: adapt title to every page -->
-    <title><spring:message code="app.admin.title"/></title>
+    <title><spring:message code="app.admin.title.institution-form"/></title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -47,9 +46,14 @@
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <!-- TODO: c:choose: new or edit-->
-                    <h1 class="h3 mb-0 text-gray-800">Edytuj instytucję</h1>
-<%--                    <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.sidebar.main.into-good-hands"/></h1>--%>
+                    <c:choose>
+                        <c:when test="${empty institution.name}">
+                            <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.form.institution.page-header.new"/></h1>
+                        </c:when>
+                        <c:otherwise>
+                            <h1 class="h3 mb-0 text-gray-800"><spring:message code="app.admin.form.institution.page-header.edit"/></h1>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
 
                 <!-- Content Row -->
@@ -57,29 +61,32 @@
 
                     <div class="card shadow mb-4 entity-form">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Instytucja</h6>
+                            <h6 class="m-0 font-weight-bold text-primary"><spring:message code="app.admin.form.institution.form-header"/></h6>
                         </div>
                         <div class="card-body">
                             <form:form method="post" modelAttribute="institution">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon3">Name</span>
+                                        <span class="input-group-text" id="basic-addon3"><spring:message code="app.admin.form.institution.name"/></span>
                                     </div>
-                                    <form:input path="name" class="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+                                    <form:input path="name" class="form-control"/>
                                     <form:errors path="name" cssClass="alert alert-danger" element="div"/>
                                 </div>
                                 <div class="input-group mb-5">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text">Purpose and mission</span>
+                                        <span class="input-group-text"><spring:message code="app.admin.form.institution.description"/></span>
                                     </div>
-                                    <form:textarea path="description" class="form-control" aria-label="Purpose and mission"/>
+                                    <form:textarea path="description" class="form-control"/>
                                     <form:errors path="description" cssClass="alert alert-danger" element="div"/>
 
                                 </div>
-                                <div class="input-group">
-                                <button type="submit" class="btn btn-warning btn-lg btn-block">Zapisz</button>
+                                <div class="input-group mb-2">
+                                <button type="submit" class="btn btn-warning btn-lg btn-block"><spring:message code="app.admin.form.save"/></button>
                                 </div>
                             </form:form>
+                            <div class="text-sm-center">
+                                <span class="back-button text-primary"><spring:message code="app.admin.form.back"/></span>
+                            </div>
                         </div>
                     </div>
 

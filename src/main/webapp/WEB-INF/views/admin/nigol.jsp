@@ -10,11 +10,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <!-- TODO: messages.properties -->
-    <title>SB Admin 2 - Login</title>
+    <title><spring:message code="app.admin.title.login"/></title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -45,10 +42,7 @@
                         <div class="col-lg-6 bg-gray-500">
                             <div class="p-5">
                                 <div class="text-center">
-
-                                    <!-- TODO: messages.properties -->
-
-                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                    <h1 class="h4 text-gray-900 mb-4"><spring:message code="app.admin.login.header"/></h1>
                                 </div>
                                 <form:form class="user" action="/lAsA" method="post">
                                     <div class="form-group">

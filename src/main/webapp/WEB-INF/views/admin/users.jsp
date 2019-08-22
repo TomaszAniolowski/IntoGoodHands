@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Tables</title>
+    <title><spring:message code="app.admin.title.users"/></title>
 
     <!-- Custom fonts for this template-->
     <link href="<c:url value="/resources/admin/vendor/fontawesome-free/css/all.min.css"/>" rel="stylesheet"
@@ -97,7 +97,7 @@
                                             </c:choose>
                                         </td>
                                         <td class="text-center">
-                                            <a href="/admin/user/form?id=${institution.id}" class="btn btn-info btn-circle">
+                                            <a href="/admin/user/form?id=${user.id}" class="btn btn-info btn-circle">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>
                                             <a href="/admin/user/rmv?id=${user.id}" class="btn btn-danger btn-circle"
