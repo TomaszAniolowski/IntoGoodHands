@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.coderslab.charity.role.Role;
 import pl.coderslab.charity.role.RoleRepository;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -83,5 +85,26 @@ public class UserServiceImpl implements UserService {
     public boolean checkUser(User user) {
         //TODO: send email if user with such an email address exists
         return this.findByUserEmail(user.getEmail()) == null && this.findByUsername(user.getUsername()) == null;
+    }
+
+    @Override
+    public void makeRole(Long id, String wantedRole) throws EntityNotFoundException, InternalError, ClassNotFoundException {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null)
+            throw new EntityNotFoundException("No user in database with id " + id);
+
+        if (wantedRole.equals("adm"))
+            wantedRole = "ROLE_ADMIN";
+        else if (wantedRole.equals("ord"))
+            wantedRole = "ROLE_USER";
+        else
+            throw new ClassNotFoundException("Can't find role of user.");
+
+        if (user.getRoles().contains(roleRepository.findByName(wantedRole)))
+            throw new InternalError("User already has " + wantedRole.replace("_", " ").toLowerCase() + "!");
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName(wantedRole));
+        user.setRoles(roles);
     }
 }

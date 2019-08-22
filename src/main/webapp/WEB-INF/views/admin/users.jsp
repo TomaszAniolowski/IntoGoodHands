@@ -114,12 +114,12 @@
                                             <!-- TODO: give or take admin rights in controller -->
                                             <c:choose>
                                                 <c:when test="${role == 'adm'}">
-                                                    <a href="#" class="btn btn-outline-primary btn-circle">
+                                                    <a href="/admin/mk/ord?id=${user.id}" class="btn btn-outline-primary btn-circle">
                                                         <i class="fas fa-user-times"></i>
                                                     </a>
                                                 </c:when>
                                                 <c:when test="${role == 'ord'}">
-                                                    <a href="#" class="btn btn-outline-primary btn-circle">
+                                                    <a href="/admin/mk/adm?id=${user.id}" class="btn btn-outline-primary btn-circle">
                                                         <i class="fas fa-user-tie"></i>
                                                     </a>
                                                 </c:when>

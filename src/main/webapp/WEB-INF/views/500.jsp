@@ -47,7 +47,7 @@
                     <p class="lead text-gray-800 mb-5"><spring:message code="app.error.500.subtitle"/></p>
                     <sec:authorize access="hasRole('ADMIN')">
                         <spring:message code="app.error.500.default-message" var="defaultMessage"/>
-                        <p class="text-gray-500 mb-0"><c:out value="${message}" default="${defaultMessage}"/></p>
+                        <p class="text-gray-500 mb-0"><c:out value="${actualErrorMessage}" default="${defaultMessage}"/></p>
                     </sec:authorize>
                     <sec:authorize access="hasRole('USER') || isAnonymous()">
                         <p class="text-gray-500 mb-0">${defaultMessage}</p>

@@ -238,6 +238,21 @@ public class AdminController {
 //        }
     }
 
+   @GetMapping("/mk/{role}")
+   public String makeAnAdmin(@RequestParam Long id, HttpSession session, HttpServletResponse response, @PathVariable String role) throws IOException {
+
+       try {
+           userService.makeRole(id, role);
+       } catch (Exception e) {
+           e.printStackTrace();
+           session.setAttribute("actualErrorMessage", e.getMessage());
+           response.sendError(500);
+       }
+//       TODO: return to user list
+//       return "redirect:/admin/users?role=" + role;
+       return "redirect:/admin/desk";
+   }
+
 
     private boolean checkRights(HttpSession session) {
         Boolean allowed = (Boolean) session.getAttribute("CHECKED_ADMIN_RIGHTS");

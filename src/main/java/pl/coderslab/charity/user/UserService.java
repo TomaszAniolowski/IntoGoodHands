@@ -15,4 +15,5 @@ public interface UserService {
     void setLocale(String username, Locale locale);
     String getUsersLocale(String username);
     boolean checkUser(User user);
+    void makeRole(Long id, String wantedRole) throws ClassNotFoundException;
 }
