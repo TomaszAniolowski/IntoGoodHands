@@ -97,7 +97,7 @@
                                             </c:choose>
                                         </td>
                                         <td class="text-center">
-                                            <a href="/admin/user/form?id=${user.id}" class="btn btn-info btn-circle">
+                                            <a href="/admin/user/form?id=${user.id}" class="btn btn-info btn-circle" title="Edit user">
                                                 <i class="fas fa-user-edit"></i>
                                             </a>
                                             <a href="/admin/user/rmv?id=${user.id}" class="btn btn-danger btn-circle"
@@ -114,12 +114,12 @@
                                             <!-- TODO: give or take admin rights in controller -->
                                             <c:choose>
                                                 <c:when test="${role == 'adm'}">
-                                                    <a href="/admin/mk/ord?id=${user.id}" class="btn btn-outline-primary btn-circle">
+                                                    <a href="/admin/mk/ord?id=${user.id}" class="btn btn-outline-primary btn-circle" title="Make ordinary">
                                                         <i class="fas fa-user-times"></i>
                                                     </a>
                                                 </c:when>
                                                 <c:when test="${role == 'ord'}">
-                                                    <a href="/admin/mk/adm?id=${user.id}" class="btn btn-outline-primary btn-circle">
+                                                    <a href="/admin/mk/adm?id=${user.id}" class="btn btn-outline-primary btn-circle" title="Make admin">
                                                         <i class="fas fa-user-tie"></i>
                                                     </a>
                                                 </c:when>

@@ -248,9 +248,8 @@ public class AdminController {
            session.setAttribute("actualErrorMessage", e.getMessage());
            response.sendError(500);
        }
-//       TODO: return to user list
-//       return "redirect:/admin/users?role=" + role;
-       return "redirect:/admin/desk";
+
+       return "redirect:/admin/users?role=" + role;
    }
 
 
